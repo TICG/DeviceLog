@@ -1,0 +1,163 @@
+﻿<syncfusion:ChromelessWindow
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+    xmlns:tb="http://www.hardcodet.net/taskbar"
+    x:Class="DeviceLog.Windows.MainWindow"
+    mc:Ignorable="d"
+    UseLayoutRounding="True"
+    TitleTextAlignment="Center"
+    AllowsTransparency="True"
+    BorderThickness="3"
+    Title="DeviceLog" Width="500" Height="250" WindowStartupLocation="CenterScreen">
+    
+    <Grid>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <tb:TaskbarIcon></tb:TaskbarIcon>
+        
+
+        <Menu Grid.Row="0" IsMainMenu="True">
+            <MenuItem Header="File">
+                <MenuItem Header="Export" Click="ExportItem_OnClick">
+                    <MenuItem.Icon>
+                        <Image Width="16" Height="16" Source="/DeviceLog;component/Resources/Images/save.png"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="Exit" Click="ExitItem_OnClick">
+                    <MenuItem.Icon>
+                        <Image Width="16" Height="16" Source="/DeviceLog;component/Resources/Images/exit.png"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Tools">
+                <MenuItem Header="Settings" Click="SettingsItem_OnClick">
+                    <MenuItem.Icon>
+                        <Image Width="16" Height="16" Source="/DeviceLog;component/Resources/Images/settings.png"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Help">
+                <MenuItem Header="Help" Click="HelpItem_OnClick">
+                    <MenuItem.Icon>
+                        <Image Width="16" Height="16" Source="/DeviceLog;component/Resources/Images/help.png"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="Check for updates" Click="UpdateItem_OnClick">
+                    <MenuItem.Icon>
+                        <Image Width="16" Height="16" Source="/DeviceLog;component/Resources/Images/network.png"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="Homepage" Click="HomePageItem_OnClick">
+                    <MenuItem.Icon>
+                        <Image Width="16" Height="16" Source="/DeviceLog;component/Resources/Images/homepage.png"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="License" Click="LicenseItem_OnClick">
+                    <MenuItem.Icon>
+                        <Image Width="16" Height="16" Source="/DeviceLog;component/Resources/Images/license.png"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="Donate" Click="DonateItem_OnClick">
+                    <MenuItem.Icon>
+                        <Image Width="16" Height="16" Source="/DeviceLog;component/Resources/Images/donate.png"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="About" Click="AboutItem_OnClick">
+                    <MenuItem.Icon>
+                        <Image Width="16" Height="16" Source="/DeviceLog;component/Resources/Images/about.png"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+
+        <Grid
+            Grid.Row="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Button Margin="5">
+                <Image
+                    Source="/DeviceLog;component/Resources/Images/keyboard.png"
+                    Width="96"
+                    Height="96"/>
+            </Button>
+
+            <ToggleButton
+                Grid.Row="1"
+                Grid.Column="0"
+                Content="OFF"
+                Margin="5"
+                Checked="ToggleButton_CheckChanged"
+                Unchecked="ToggleButton_CheckChanged"/>
+
+            <Button Grid.Row="0" Grid.Column="1" Margin="5">
+                <Image
+                    Source="/DeviceLog;component/Resources/Images/monitor.png"
+                    Width="96"
+                    Height="96"/>
+            </Button>
+
+            <ToggleButton
+                Grid.Row="1"
+                Grid.Column="1"
+                Content="OFF"
+                Margin="5"
+                Checked="ToggleButton_CheckChanged"
+                Unchecked="ToggleButton_CheckChanged"/>
+
+            <Button Grid.Row="0" Grid.Column="2" Margin="5">
+                <Image
+                    Source="/DeviceLog;component/Resources/Images/filesystem.png"
+                    Width="96"
+                    Height="96"/>
+            </Button>
+
+            <ToggleButton
+                Grid.Row="1"
+                Grid.Column="2"
+                Content="OFF"
+                Margin="5"
+                Checked="ToggleButton_CheckChanged"
+                Unchecked="ToggleButton_CheckChanged"/>
+
+            <Button Grid.Row="0" Grid.Column="3" Margin="5">
+                <Image
+                    Source="/DeviceLog;component/Resources/Images/network.png"
+                    Width="96"
+                    Height="96"/>
+            </Button>
+
+            <ToggleButton
+                Grid.Row="1"
+                Grid.Column="3"
+                Content="OFF"
+                Margin="5"
+                Checked="ToggleButton_CheckChanged"
+                Unchecked="ToggleButton_CheckChanged"/>
+
+        </Grid>
+
+    </Grid>
+</syncfusion:ChromelessWindow>
