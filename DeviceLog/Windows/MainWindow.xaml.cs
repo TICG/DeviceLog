@@ -11,9 +11,7 @@ namespace DeviceLog.Windows
     /// </summary>
     public partial class MainWindow
     {
-
         private readonly UpdateManager.UpdateManager _updateManager;
-
 
         public MainWindow()
         {
@@ -36,13 +34,18 @@ namespace DeviceLog.Windows
         }
 
         /// <summary>
-        /// Change the visual style of the controls, depending on the settings.
+        /// Change the visual style of the controls, depending on the settings
         /// </summary>
         internal void LoadTheme()
         {
             StyleManager.ChangeStyle(this);
         }
 
+        /// <summary>
+        /// Change the text of a togglebutton whenever it becomes (un)checked
+        /// </summary>
+        /// <param name="sender">The togglebutton which has been (un)checked</param>
+        /// <param name="e">The routed event arguments</param>
         private void ToggleButton_CheckChanged(object sender, RoutedEventArgs e)
         {
             ToggleButton toggleButton = sender as ToggleButton;
