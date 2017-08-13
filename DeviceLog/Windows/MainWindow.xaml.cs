@@ -2,7 +2,10 @@
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls.Primitives;
-using DeviceLog.Classes;
+using DeviceLog.Classes.GUI;
+using DeviceLog.Classes.Modules.Keyboard;
+using Application = System.Windows.Application;
+using MessageBox = System.Windows.MessageBox;
 
 namespace DeviceLog.Windows
 {
@@ -32,6 +35,7 @@ namespace DeviceLog.Windows
                 MessageBox.Show(this, ex.Message, "DeviceLog", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
 
         /// <summary>
         /// Change the visual style of the controls, depending on the settings
