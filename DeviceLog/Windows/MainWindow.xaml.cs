@@ -16,14 +16,14 @@ namespace DeviceLog.Windows
     {
         private readonly UpdateManager.UpdateManager _updateManager;
 
-        private KeyboardModule _keyboardModule;
+        private readonly KeyboardModule _keyboardModule;
 
         public MainWindow()
         {
             InitializeComponent();
             _updateManager = new UpdateManager.UpdateManager(System.Reflection.Assembly.GetExecutingAssembly().GetName().Version, "https://codedead.com/Software/DeviceLog/update.xml", "DeviceLog");
 
-            _keyboardModule = new KeyboardModule(false, false, true, true);
+            _keyboardModule = new KeyboardModule(true, false, true, true);
 
             LoadTheme();
 

