@@ -104,7 +104,7 @@
                     Height="96"/>
             </Button>
 
-            <ToggleButton
+            <ToggleButton x:Name="TgbKeyboard"
                 Grid.Row="1"
                 Grid.Column="0"
                 Content="OFF"

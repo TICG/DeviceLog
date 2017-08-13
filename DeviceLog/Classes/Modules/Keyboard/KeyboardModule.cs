@@ -12,9 +12,9 @@ namespace DeviceLog.Classes.Modules.Keyboard
         private readonly bool _windowTitle;
         private readonly WindowModule _windowModule;
 
-        internal KeyboardModule(bool keyUp, bool keyDown, bool windowTitle)
+        internal KeyboardModule(bool special, bool keyUp, bool keyDown, bool windowTitle)
         {
-            _keyboardHook = new KeyboardHook();
+            _keyboardHook = new KeyboardHook(special);
             _log = new KeyboardLog();
             _windowModule = new WindowModule();
 

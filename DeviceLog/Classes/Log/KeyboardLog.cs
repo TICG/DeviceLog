@@ -18,6 +18,7 @@ namespace DeviceLog.Classes.Log
 
         internal void AddKey(String key)
         {
+            Console.Write(key);
             data += key;
         }
 

