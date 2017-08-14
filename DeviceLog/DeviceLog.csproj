@@ -38,6 +38,9 @@
   <PropertyGroup>
     <StartupObject>DeviceLog.App</StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>DeviceLog.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Hardcodet.Wpf.TaskbarNotification, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Hardcodet.NotifyIcon.Wpf.1.0.8\lib\net451\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
@@ -147,6 +150,9 @@
     <Resource Include="Resources\Images\help.png" />
     <Resource Include="Resources\Images\homepage.png" />
     <Resource Include="Resources\Images\license.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="DeviceLog.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

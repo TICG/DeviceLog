@@ -1,13 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace DeviceLog.Classes.Log
 {
-    abstract class Log
+    /// <summary>
+    /// Abstract representation of an internal Log
+    /// </summary>
+    internal abstract class Log
     {
+        /// <summary>
+        /// The type of log
+        /// </summary>
+        internal LogType LogType {get;set;}
+    }
+
+    /// <summary>
+    /// An enumeration of all available log types
+    /// </summary>
+    internal enum LogType
+    {
+        Keyboard,
+        FileSystem,
+        Screenshot,
+        Network
     }
 }
