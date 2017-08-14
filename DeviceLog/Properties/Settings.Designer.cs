@@ -70,5 +70,41 @@ namespace DeviceLog.Properties {
                 this["AutoUpdate"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Keyboard_SpecialKeys {
+            get {
+                return ((bool)(this["Keyboard_SpecialKeys"]));
+            }
+            set {
+                this["Keyboard_SpecialKeys"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool KeyBoard_ControlCharacters {
+            get {
+                return ((bool)(this["KeyBoard_ControlCharacters"]));
+            }
+            set {
+                this["KeyBoard_ControlCharacters"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool KeyBoard_WindowTitle {
+            get {
+                return ((bool)(this["KeyBoard_WindowTitle"]));
+            }
+            set {
+                this["KeyBoard_WindowTitle"] = value;
+            }
+        }
     }
 }

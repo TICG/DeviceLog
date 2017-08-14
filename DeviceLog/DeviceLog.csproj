@@ -82,6 +82,7 @@
     </Compile>
     <Compile Include="Classes\Log\KeyboardLog.cs" />
     <Compile Include="Classes\Log\Log.cs" />
+    <Compile Include="Classes\Log\LogController.cs" />
     <Compile Include="Classes\Modules\Keyboard\KeyboardHook.cs" />
     <Compile Include="Classes\Modules\Keyboard\KeyboardModule.cs" />
     <Compile Include="Classes\GUI\StyleManager.cs" />

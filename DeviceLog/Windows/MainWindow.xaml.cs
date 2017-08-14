@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using DeviceLog.Classes.GUI;
+using DeviceLog.Classes.Log;
 using DeviceLog.Classes.Modules.Keyboard;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
@@ -16,6 +17,7 @@ namespace DeviceLog.Windows
     {
         private readonly UpdateManager.UpdateManager _updateManager;
 
+        private readonly LogController _logController;
         private readonly KeyboardModule _keyboardModule;
 
         public MainWindow()
@@ -23,7 +25,8 @@ namespace DeviceLog.Windows
             InitializeComponent();
             _updateManager = new UpdateManager.UpdateManager(System.Reflection.Assembly.GetExecutingAssembly().GetName().Version, "https://codedead.com/Software/DeviceLog/update.xml", "DeviceLog");
 
-            _keyboardModule = new KeyboardModule(true, false, true, true);
+            _logController = new LogController();
+            _keyboardModule = new KeyboardModule(true, true, false, true, true, _logController);
 
             LoadTheme();
 

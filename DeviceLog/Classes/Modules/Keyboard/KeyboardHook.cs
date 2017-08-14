@@ -65,10 +65,12 @@ namespace DeviceLog.Classes.Modules.Keyboard
         internal KeyPressedEvent KeyDown;
 
         private readonly bool _logSpecialKeys;
+        private readonly bool _logControlKeys;
 
-        internal KeyboardHook(bool logSpecial)
+        internal KeyboardHook(bool logSpecial, bool logControl)
         {
             _logSpecialKeys = logSpecial;
+            _logControlKeys = logControl;
         }
 
         internal void Hook()
@@ -114,10 +116,10 @@ namespace DeviceLog.Classes.Modules.Keyboard
             int res = ToUnicodeEx(l.vkCode, l.scanCode, keyState, sbString, sbString.Capacity, l.flags, GetKeyboardLayout(0));
 
             // Key can be translated to unicode
-          if (res == 1)
+            if (res == 1)
             {
                 char key = sbString[0];
-                
+
                 if ((isDownCapslock || isDownShift) && char.IsLetter(key))
                 {
                     key = char.ToUpper(key);
@@ -125,41 +127,49 @@ namespace DeviceLog.Classes.Modules.Keyboard
 
                 string result = key.ToString();
 
-                if (char.IsControl(key))
+                if (_logControlKeys)
                 {
-                    switch (dataKey)
+                    if (char.IsControl(key))
                     {
-                        case Key.Back:
-                            result = "[Back]";
-                            break;
-                        case Key.Escape:
-                            result = "[ESC]";
-                            break;
+                        switch (dataKey)
+                        {
+                            case Key.Back:
+                                result = "[Back]";
+                                break;
+                            case Key.Escape:
+                                result = "[ESC]";
+                                break;
+                        }
                     }
                 }
-                
-                if (kEvent == KeyEvents.KeyDown || kEvent == KeyEvents.SKeyDown)
+
+                switch (kEvent)
                 {
-                    KeyDown?.Invoke(result);
-                }
-                else if (kEvent == KeyEvents.KeyUp || kEvent == KeyEvents.SKeyUp)
-                {
-                    KeyUp?.Invoke(result);
+                    case KeyEvents.KeyDown:
+                    case KeyEvents.SKeyDown:
+                        KeyDown?.Invoke(result);
+                        break;
+                    case KeyEvents.KeyUp:
+                    case KeyEvents.SKeyUp:
+                        KeyUp?.Invoke(result);
+                        break;
                 }
             }
             // Key cannot be translated to unicode
             else if (res == 0)
             {
-                if (_logSpecialKeys)
+                if (!_logSpecialKeys) return CallNextHookEx(_hookId, code, w, ref l);
+                // ReSharper disable once SwitchStatementMissingSomeCases
+                switch (kEvent)
                 {
-                    if (kEvent == KeyEvents.KeyDown || kEvent == KeyEvents.SKeyDown)
-                    {
+                    case KeyEvents.KeyDown:
+                    case KeyEvents.SKeyDown:
                         KeyDown?.Invoke("[" + dataKey + "]");
-                    }
-                    else if (kEvent == KeyEvents.KeyUp || kEvent == KeyEvents.SKeyUp)
-                    {
+                        break;
+                    case KeyEvents.KeyUp:
+                    case KeyEvents.SKeyUp:
                         KeyUp?.Invoke("[" + dataKey + "]");
-                    }
+                        break;
                 }
             }
             return CallNextHookEx(_hookId, code, w, ref l);
