@@ -24,14 +24,12 @@ namespace DeviceLog.Classes.Log
 
             if (dateTime)
             {
-                _data += Environment.NewLine;
                 _data += "[" + DateTime.Now.ToString(CultureInfo.CurrentCulture) + "]";
                 _data += data;
 
             }
             else
             {
-                _data += Environment.NewLine;
                 _data += data;
             }
         }

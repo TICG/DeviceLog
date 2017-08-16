@@ -20,6 +20,8 @@ namespace DeviceLog.Windows
         private readonly LogController _logController;
         private readonly KeyboardModule _keyboardModule;
 
+        private readonly bool _logDateTime;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -27,6 +29,8 @@ namespace DeviceLog.Windows
 
             _logController = new LogController();
             _keyboardModule = new KeyboardModule(true, true, false, true, true, _logController);
+
+            _logDateTime = true;
 
             LoadTheme();
 
@@ -41,6 +45,8 @@ namespace DeviceLog.Windows
             {
                 MessageBox.Show(this, ex.Message, "DeviceLog", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
+            _logController.AddLog(new ApplicationLog(_logDateTime, "DeviceLog is currently initializing"));
         }
 
 
@@ -69,10 +75,12 @@ namespace DeviceLog.Windows
                 case "TgbKeyboard":
                     if (toggleButton.IsChecked == true)
                     {
+                        _logController.AddLog(new ApplicationLog(_logDateTime, "The keyboard module has been started"));
                         _keyboardModule.Start();
                     }
                     else
                     {
+                        _logController.AddLog(new ApplicationLog(_logDateTime, "The keyboard module has been stopped"));
                         _keyboardModule.Stop();
                     }
                     break;
@@ -86,6 +94,7 @@ namespace DeviceLog.Windows
 
         private void ExitItem_OnClick(object sender, RoutedEventArgs e)
         {
+            _logController.AddLog(new ApplicationLog(_logDateTime, "DeviceLog is shutting down"));
             Application.Current.Shutdown();
         }
 
@@ -108,6 +117,7 @@ namespace DeviceLog.Windows
 
         private void UpdateItem_OnClick(object sender, RoutedEventArgs e)
         {
+            _logController.AddLog(new ApplicationLog(_logDateTime, "DeviceLog is checking for updates"));
             _updateManager.CheckForUpdate(true, true);
         }
 
@@ -150,6 +160,20 @@ namespace DeviceLog.Windows
         private void AboutItem_OnClick(object sender, RoutedEventArgs e)
         {
             throw new NotImplementedException();
+        }
+
+        private void OpenItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (IsVisible)
+            {
+                _logController.AddLog(new ApplicationLog(_logDateTime, "DeviceLog has been hidden"));
+                Hide();
+            }
+            else
+            {
+                _logController.AddLog(new ApplicationLog(_logDateTime, "DeviceLog has been shown"));
+                Show();
+            }
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 namespace DeviceLog.Classes.Log
 {
 
@@ -26,9 +25,8 @@ namespace DeviceLog.Classes.Log
         /// Add new data to the current log
         /// </summary>
         /// <param name="key">The data that should be added to the log</param>
-        internal void AddKey(String key)
+        internal void AddKey(string key)
         {
-            Console.Write(key);
             _data += key;
         }
 

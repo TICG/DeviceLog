@@ -17,7 +17,9 @@ namespace DeviceLog.Classes.Log
     /// </summary>
     internal enum LogType
     {
+        Application,
         Keyboard,
+        Clipboard,
         FileSystem,
         Screenshot,
         Network

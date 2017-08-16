@@ -9,7 +9,8 @@ namespace DeviceLog.Classes.Log
     internal class ClipboardLog : Log
     {
         private string _data;
-        private bool _logDate;
+        private readonly bool _logDate;
+
         internal ClipboardLog(bool logDate)
         {
             LogType = LogType.Clipboard;
@@ -19,9 +20,9 @@ namespace DeviceLog.Classes.Log
 
         internal void AddData(string data)
         {
+            _data += Environment.NewLine;
             if (_logDate)
             {
-                _data += Environment.NewLine;
                 _data += "[" + DateTime.Now + "]" + data;
             }
             else
@@ -29,6 +30,11 @@ namespace DeviceLog.Classes.Log
                 _data += Environment.NewLine;
                 _data += data;
             }
+        }
+
+        internal string GetLog()
+        {
+            return _data;
         }
     }
 }
