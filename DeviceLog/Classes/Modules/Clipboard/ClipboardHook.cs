@@ -59,10 +59,13 @@ namespace DeviceLog.Classes.Modules.Clipboard
 
         public void Dispose()
         {
-            ChangeClipboardChain(_hWndSource.Handle, _hWndNextViewer);
+            if (_hWndSource != null)
+            {
+                ChangeClipboardChain(_hWndSource.Handle, _hWndNextViewer);
 
-            _hWndNextViewer = IntPtr.Zero;
-            _hWndSource.RemoveHook(WinProc);
+                _hWndNextViewer = IntPtr.Zero;
+                _hWndSource.RemoveHook(WinProc);
+            }
             _isViewing = false;
         }
 

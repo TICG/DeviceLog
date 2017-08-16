@@ -5,6 +5,7 @@ using System.Windows.Controls.Primitives;
 using DeviceLog.Classes.GUI;
 using DeviceLog.Classes.Log;
 using DeviceLog.Classes.Modules.Application;
+using DeviceLog.Classes.Modules.Clipboard;
 using DeviceLog.Classes.Modules.Keyboard;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
@@ -21,6 +22,7 @@ namespace DeviceLog.Windows
         private readonly LogController _logController;
         private readonly ApplicationModule _applicationModule;
         private readonly KeyboardModule _keyboardModule;
+        private readonly ClipboardModule _clipboardModule;
 
         public MainWindow()
         {
@@ -31,6 +33,7 @@ namespace DeviceLog.Windows
 
             _applicationModule = new ApplicationModule(true, _logController);
             _keyboardModule = new KeyboardModule(true, true, false, true, true, _logController);
+            _clipboardModule = new ClipboardModule(this, true, _logController);
 
             LoadTheme();
 
@@ -82,6 +85,18 @@ namespace DeviceLog.Windows
                     {
                         _applicationModule.AddData("The keyboard module has been disabled");
                         _keyboardModule.Stop();
+                    }
+                    break;
+                case "TgbClipboard":
+                    if (toggleButton.IsChecked == true)
+                    {
+                        _applicationModule.AddData("The clipboard module has been activated");
+                        _clipboardModule.Start();
+                    }
+                    else
+                    {
+                        _applicationModule.AddData("The keyboard module has been disabled");
+                        _clipboardModule.Stop();
                     }
                     break;
             }

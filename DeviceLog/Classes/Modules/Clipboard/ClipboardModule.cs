@@ -1,4 +1,5 @@
-﻿using DeviceLog.Classes.Log;
+﻿using System;
+using DeviceLog.Classes.Log;
 
 namespace DeviceLog.Classes.Modules.Clipboard
 {

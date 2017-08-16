@@ -1,4 +1,5 @@
-﻿using DeviceLog.Classes.Log;
+﻿using System;
+using DeviceLog.Classes.Log;
 
 namespace DeviceLog.Classes.Modules.Keyboard
 {
@@ -73,9 +74,9 @@ namespace DeviceLog.Classes.Modules.Keyboard
                 {
                     _currentWindowTitle = title;
 
-                    _log.AddKey(System.Environment.NewLine);
+                    _log.AddKey(Environment.NewLine);
                     _log.AddKey("[" + title + "]");
-                    _log.AddKey(System.Environment.NewLine);
+                    _log.AddKey(Environment.NewLine);
                 }
             }
             _log.AddKey(key);
