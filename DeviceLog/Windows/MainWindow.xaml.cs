@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls.Primitives;
 using DeviceLog.Classes.GUI;
 using DeviceLog.Classes.Log;
+using DeviceLog.Classes.Modules.Application;
 using DeviceLog.Classes.Modules.Keyboard;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
@@ -18,6 +19,7 @@ namespace DeviceLog.Windows
         private readonly UpdateManager.UpdateManager _updateManager;
 
         private readonly LogController _logController;
+        private readonly ApplicationModule _applicationModule;
         private readonly KeyboardModule _keyboardModule;
 
         private readonly bool _logDateTime;
@@ -28,6 +30,7 @@ namespace DeviceLog.Windows
             _updateManager = new UpdateManager.UpdateManager(System.Reflection.Assembly.GetExecutingAssembly().GetName().Version, "https://codedead.com/Software/DeviceLog/update.xml", "DeviceLog");
 
             _logController = new LogController();
+            _applicationModule = new ApplicationModule(true);
             _keyboardModule = new KeyboardModule(true, true, false, true, true, _logController);
 
             _logDateTime = true;
@@ -46,7 +49,7 @@ namespace DeviceLog.Windows
                 MessageBox.Show(this, ex.Message, "DeviceLog", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            _logController.AddLog(new ApplicationLog(_logDateTime, "DeviceLog is currently initializing"));
+            _applicationModule.AddData("DeviceLog is currently initializing");
         }
 
 
@@ -75,12 +78,12 @@ namespace DeviceLog.Windows
                 case "TgbKeyboard":
                     if (toggleButton.IsChecked == true)
                     {
-                        _logController.AddLog(new ApplicationLog(_logDateTime, "The keyboard module has been started"));
+                        _applicationModule.AddData("The keyboard module has been activated");
                         _keyboardModule.Start();
                     }
                     else
                     {
-                        _logController.AddLog(new ApplicationLog(_logDateTime, "The keyboard module has been stopped"));
+                        _applicationModule.AddData("The keyboard module has been disabled");
                         _keyboardModule.Stop();
                     }
                     break;
@@ -94,7 +97,7 @@ namespace DeviceLog.Windows
 
         private void ExitItem_OnClick(object sender, RoutedEventArgs e)
         {
-            _logController.AddLog(new ApplicationLog(_logDateTime, "DeviceLog is shutting down"));
+            _applicationModule.AddData("DeviceLog is shutting down");
             Application.Current.Shutdown();
         }
 
@@ -117,7 +120,7 @@ namespace DeviceLog.Windows
 
         private void UpdateItem_OnClick(object sender, RoutedEventArgs e)
         {
-            _logController.AddLog(new ApplicationLog(_logDateTime, "DeviceLog is checking for updates"));
+            _applicationModule.AddData("DeviceLog is checking for updates");
             _updateManager.CheckForUpdate(true, true);
         }
 
@@ -166,12 +169,12 @@ namespace DeviceLog.Windows
         {
             if (IsVisible)
             {
-                _logController.AddLog(new ApplicationLog(_logDateTime, "DeviceLog has been hidden"));
+                _applicationModule.AddData("DeviceLog window has been hidden");
                 Hide();
             }
             else
             {
-                _logController.AddLog(new ApplicationLog(_logDateTime, "DeviceLog has been shown"));
+                _applicationModule.AddData("DeviceLog window has been shown to the user");
                 Show();
             }
         }

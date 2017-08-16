@@ -89,12 +89,13 @@
     <Compile Include="Classes\Log\KeyboardLog.cs" />
     <Compile Include="Classes\Log\Log.cs" />
     <Compile Include="Classes\Log\LogController.cs" />
+    <Compile Include="Classes\Modules\Application\ApplicationModule.cs" />
     <Compile Include="Classes\Modules\Clipboard\ClipboardHook.cs" />
     <Compile Include="Classes\Modules\Clipboard\ClipboardModule.cs" />
     <Compile Include="Classes\Modules\Keyboard\KeyboardHook.cs" />
     <Compile Include="Classes\Modules\Keyboard\KeyboardModule.cs" />
     <Compile Include="Classes\GUI\StyleManager.cs" />
-    <Compile Include="Classes\Modules\Window\WindowModule.cs" />
+    <Compile Include="Classes\Modules\Keyboard\WindowHook.cs" />
     <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

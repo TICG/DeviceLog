@@ -2,12 +2,12 @@
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace DeviceLog.Classes.Modules.Window
+namespace DeviceLog.Classes.Modules.Keyboard
 {
     /// <summary>
     /// A class that can be used to retrieve the title of the currently active window
     /// </summary>
-    internal class WindowModule
+    internal class WindowHook
     {
         /// <summary>
         /// Retrieves a handle to the foreground window (the window with which the user is currently working). The system assigns a slightly higher priority to the thread that creates the foreground window than it does to other threads

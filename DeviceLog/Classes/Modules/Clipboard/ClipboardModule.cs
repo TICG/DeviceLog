@@ -7,12 +7,14 @@ namespace DeviceLog.Classes.Modules.Clipboard
         private readonly ClipboardHook _clipboardHook;
         private readonly ClipboardLog _clipboardLog;
 
-        internal ClipboardModule(System.Windows.Window window, bool logDate)
+        internal ClipboardModule(System.Windows.Window window, bool logDate, LogController logController)
         {
             _clipboardHook = new ClipboardHook(window);
             _clipboardLog = new ClipboardLog(logDate);
 
             _clipboardHook.ClipboardChanged += ClipboardChanged;
+
+            logController.AddLog(_clipboardLog);
         }
 
         private void ClipboardChanged(string data)
