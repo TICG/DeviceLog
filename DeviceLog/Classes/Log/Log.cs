@@ -10,6 +10,11 @@ namespace DeviceLog.Classes.Log
         /// The type of log
         /// </summary>
         internal LogType LogType {get;set;}
+        /// <summary>
+        /// Get the raw string data that was collected
+        /// </summary>
+        /// <returns>The raw string data that was previously collected</returns>
+        internal abstract string GetLog();
     }
 
     /// <summary>
@@ -21,7 +26,6 @@ namespace DeviceLog.Classes.Log
         Keyboard,
         Clipboard,
         FileSystem,
-        Screenshot,
-        Network
+        Screenshot
     }
 }

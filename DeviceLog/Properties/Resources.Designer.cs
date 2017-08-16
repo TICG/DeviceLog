@@ -73,6 +73,16 @@ namespace DeviceLog.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap clipboard {
+            get {
+                object obj = ResourceManager.GetObject("clipboard", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap donate {
             get {
                 object obj = ResourceManager.GetObject("donate", resourceCulture);
@@ -93,9 +103,9 @@ namespace DeviceLog.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap filesystem {
+        internal static System.Drawing.Bitmap folder {
             get {
-                object obj = ResourceManager.GetObject("filesystem", resourceCulture);
+                object obj = ResourceManager.GetObject("folder", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

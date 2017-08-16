@@ -136,7 +136,7 @@
     <Resource Include="Resources\Images\monitor.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Images\filesystem.png" />
+    <Resource Include="Resources\Images\clipboard.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\network.png" />
@@ -159,6 +159,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="DeviceLog.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\folder.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

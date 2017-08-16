@@ -31,10 +31,10 @@ namespace DeviceLog.Classes.Log
         }
 
         /// <summary>
-        /// Get the current raw log data
+        /// Get the raw string data that was collected
         /// </summary>
-        /// <returns>The current raw log data</returns>
-        internal string GetLog()
+        /// <returns>The raw string data that was previously collected</returns>
+        internal override string GetLog()
         {
             return _data;
         }

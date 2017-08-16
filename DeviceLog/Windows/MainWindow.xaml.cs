@@ -22,18 +22,15 @@ namespace DeviceLog.Windows
         private readonly ApplicationModule _applicationModule;
         private readonly KeyboardModule _keyboardModule;
 
-        private readonly bool _logDateTime;
-
         public MainWindow()
         {
             InitializeComponent();
             _updateManager = new UpdateManager.UpdateManager(System.Reflection.Assembly.GetExecutingAssembly().GetName().Version, "https://codedead.com/Software/DeviceLog/update.xml", "DeviceLog");
 
             _logController = new LogController();
-            _applicationModule = new ApplicationModule(true);
-            _keyboardModule = new KeyboardModule(true, true, false, true, true, _logController);
 
-            _logDateTime = true;
+            _applicationModule = new ApplicationModule(true, _logController);
+            _keyboardModule = new KeyboardModule(true, true, false, true, true, _logController);
 
             LoadTheme();
 
