@@ -71,5 +71,14 @@ namespace DeviceLog.Classes.Log
         {
             return _logList.Where(l => l.LogType == LogType.FileSystem).ToList();
         }
+
+        /// <summary>
+        /// Get all logs that are of the ClipboardLog type
+        /// </summary>
+        /// <returns>A list of collected Clipboard logs</returns>
+        internal List<Log> GetClipboardLogs()
+        {
+            return _logList.Where(l => l.LogType == LogType.Clipboard).ToList();
+        }
     }
 }

