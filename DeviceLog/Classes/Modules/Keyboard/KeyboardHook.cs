@@ -19,7 +19,7 @@ namespace DeviceLog.Classes.Modules.Keyboard
         /// <param name="threadId">The thread ID of the hook</param>
         /// <returns>An integer to indicate whether the hook was successfully placed or not</returns>
         [DllImport("user32.dll", CallingConvention = CallingConvention.StdCall)]
-        private static extern int SetWindowsHookEx(int idHook, CallbackDelegate lpfn, int hInstance, int threadId);
+        private static extern IntPtr SetWindowsHookEx(int idHook, CallbackDelegate lpfn, int hInstance, int threadId);
 
         /// <summary>
         /// Removes a hook procedure installed in a hook chain by the SetWindowsHookEx function.
@@ -27,7 +27,7 @@ namespace DeviceLog.Classes.Modules.Keyboard
         /// <param name="idHook">A handle to the hook to be removed. This parameter is a hook handle obtained by a previous call to SetWindowsHookEx</param>
         /// <returns>A boolean to indicate whether the hook was successfully removed or not</returns>
         [DllImport("user32.dll", CallingConvention = CallingConvention.StdCall)]
-        private static extern bool UnhookWindowsHookEx(int idHook);
+        private static extern bool UnhookWindowsHookEx(IntPtr idHook);
 
         /// <summary>
         /// Passes the hook information to the next hook procedure in the current hook chain. A hook procedure can call this function either before or after processing the hook information
@@ -38,7 +38,7 @@ namespace DeviceLog.Classes.Modules.Keyboard
         /// <param name="lParam">The lParam value passed to the current hook procedure. The meaning of this parameter depends on the type of hook associated with the current hook chain</param>
         /// <returns>This value is returned by the next hook procedure in the chain. The current hook procedure must also return this value. The meaning of the return value depends on the hook type. For more information, see the descriptions of the individual hook procedures</returns>
         [DllImport("user32.dll", CallingConvention = CallingConvention.StdCall)]
-        private static extern int CallNextHookEx(int idHook, int nCode, int wParam, ref KbdllHookStruct lParam);
+        private static extern IntPtr CallNextHookEx(IntPtr idHook, int nCode, IntPtr wParam, ref KbdllHookStruct lParam);
 
         /// <summary>
         /// Translates the specified virtual-key code and keyboard state to the corresponding Unicode character or characters.
@@ -52,7 +52,7 @@ namespace DeviceLog.Classes.Modules.Keyboard
         /// <param name="dwhkl">The input locale identifier used to translate the specified code. This parameter can be any input locale identifier previously returned by the LoadKeyboardLayout function</param>
         /// <returns>An integer value to indicate whether the virtual-key code could be translated to their unicode counterpart</returns>
         [DllImport("user32.dll")]
-        private static extern int ToUnicodeEx(uint wVirtKey, uint wScanCode, byte[] lpKeyState, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder pwszBuff, int cchBuff, uint wFlags, IntPtr dwhkl);
+        private static extern int ToUnicodeEx(int wVirtKey, int wScanCode, byte[] lpKeyState, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder pwszBuff, int cchBuff, int wFlags, IntPtr dwhkl);
 
         /// <summary>
         /// Retrieves the status of the specified virtual key. The status specifies whether the key is up, down, or toggled (on, off—alternating each time the key is pressed)
@@ -85,7 +85,7 @@ namespace DeviceLog.Classes.Modules.Keyboard
         /// <param name="w">The identifier of the keyboard message</param>
         /// <param name="l">A pointer to a KbdllHookStruct structure</param>
         /// <returns></returns>
-        private delegate int CallbackDelegate(int code, int w, ref KbdllHookStruct l);
+        private delegate IntPtr CallbackDelegate(int code, IntPtr w, ref KbdllHookStruct l);
 
         /// <summary>
         /// The declaration of a delegate that will be used to send key-press information to other objects
@@ -108,11 +108,11 @@ namespace DeviceLog.Classes.Modules.Keyboard
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
         private struct KbdllHookStruct
         {
-            internal readonly uint vkCode;
-            internal readonly uint scanCode;
-            internal readonly uint flags;
-            private readonly uint time;
-            private readonly uint dwExtraInfo;
+            internal readonly int vkCode;
+            internal readonly int scanCode;
+            internal readonly int flags;
+            private readonly int time;
+            private readonly int dwExtraInfo;
         }
 
         /// <summary>
@@ -129,7 +129,7 @@ namespace DeviceLog.Classes.Modules.Keyboard
         /// <summary>
         /// The current hook ID
         /// </summary>
-        private int _hookId;
+        private IntPtr _hookId;
         /// <summary>
         /// A boolean to indicate whether or not the low-level hook has been removed
         /// </summary>
@@ -179,7 +179,6 @@ namespace DeviceLog.Classes.Modules.Keyboard
             if (_isHooked) return;
             _theHookCb = KeybHookProc;
             _hookId = SetWindowsHookEx(13, _theHookCb, 0, 0);
-
             _isHooked = true;
         }
 
@@ -216,12 +215,13 @@ namespace DeviceLog.Classes.Modules.Keyboard
         /// <param name="w">The identifier of the keyboard message</param>
         /// <param name="l">A pointer to a KbdllHookStruct structure</param>
         /// <returns>An integer to indicate whether the next hook was successfully placed or not</returns>
-        private int KeybHookProc(int code, int w, ref KbdllHookStruct l)
+        private IntPtr KeybHookProc(int code, IntPtr w, ref KbdllHookStruct l)
         {
             if (code < 0) return CallNextHookEx(_hookId, code, w, ref l);
 
             KeyEvents kEvent = (KeyEvents)w;
-            Key dataKey = KeyInterop.KeyFromVirtualKey((int)l.vkCode);
+
+            Key dataKey = KeyInterop.KeyFromVirtualKey(l.vkCode);
 
             bool isDownShift = (GetKeyState(VkShift) & 0x80) == 0x80;
             bool isDownCapslock = GetKeyState(VkCapital) != 0;

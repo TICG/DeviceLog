@@ -1,4 +1,8 @@
 ﻿
+using System;
+using System.Diagnostics;
+using System.Windows;
+
 namespace DeviceLog.Classes.Log
 {
 
