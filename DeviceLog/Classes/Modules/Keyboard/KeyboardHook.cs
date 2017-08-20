@@ -58,7 +58,7 @@ namespace DeviceLog.Classes.Modules.Keyboard
         /// Retrieves the status of the specified virtual key. The status specifies whether the key is up, down, or toggled (on, off—alternating each time the key is pressed)
         /// </summary>
         /// <param name="nVirtKey">A virtual key. If the desired virtual key is a letter or digit (A through Z, a through z, or 0 through 9), nVirtKey must be set to the ASCII value of that character. For other keys, it must be a virtual-key code</param>
-        /// <returns></returns>
+        /// <returns>A SHORT value. If the high-order bit is 1, the key is down; otherwise, it is up.</returns>
         [DllImport("user32.dll")]
         private static extern short GetKeyState(int nVirtKey);
 
@@ -84,7 +84,7 @@ namespace DeviceLog.Classes.Modules.Keyboard
         /// <param name="code">A code the hook procedure uses to determine how to process the message</param>
         /// <param name="w">The identifier of the keyboard message</param>
         /// <param name="l">A pointer to a KbdllHookStruct structure</param>
-        /// <returns></returns>
+        /// <returns>This value is returned by the next hook procedure in the chain</returns>
         private delegate IntPtr CallbackDelegate(int code, IntPtr w, ref KbdllHookStruct l);
 
         /// <summary>
@@ -214,7 +214,7 @@ namespace DeviceLog.Classes.Modules.Keyboard
         /// <param name="code">A code the hook procedure uses to determine how to process the message</param>
         /// <param name="w">The identifier of the keyboard message</param>
         /// <param name="l">A pointer to a KbdllHookStruct structure</param>
-        /// <returns>An integer to indicate whether the next hook was successfully placed or not</returns>
+        /// <returns>This value is returned by the next hook procedure in the chain</returns>
         private IntPtr KeybHookProc(int code, IntPtr w, ref KbdllHookStruct l)
         {
             if (code < 0) return CallNextHookEx(_hookId, code, w, ref l);
