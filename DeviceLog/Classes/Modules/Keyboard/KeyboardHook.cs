@@ -8,7 +8,7 @@ namespace DeviceLog.Classes.Modules.Keyboard
     /// <summary>
     /// A class that manages a global low level keyboard hook
     /// </summary>
-    internal class KeyboardHook : IDisposable
+    internal sealed class KeyboardHook : IDisposable
     {
         /// <summary>
         /// Installs an application-defined hook procedure into a hook chain. You would install a hook procedure to monitor the system for certain types of events. These events are associated either with a specific thread or with all threads in the same desktop as the calling thread
@@ -20,7 +20,6 @@ namespace DeviceLog.Classes.Modules.Keyboard
         /// <returns>An integer to indicate whether the hook was successfully placed or not</returns>
         [DllImport("user32.dll", CallingConvention = CallingConvention.StdCall)]
         private static extern IntPtr SetWindowsHookEx(int idHook, CallbackDelegate lpfn, int hInstance, int threadId);
-
         /// <summary>
         /// Removes a hook procedure installed in a hook chain by the SetWindowsHookEx function.
         /// </summary>
@@ -28,7 +27,6 @@ namespace DeviceLog.Classes.Modules.Keyboard
         /// <returns>A boolean to indicate whether the hook was successfully removed or not</returns>
         [DllImport("user32.dll", CallingConvention = CallingConvention.StdCall)]
         private static extern bool UnhookWindowsHookEx(IntPtr idHook);
-
         /// <summary>
         /// Passes the hook information to the next hook procedure in the current hook chain. A hook procedure can call this function either before or after processing the hook information
         /// </summary>
@@ -39,7 +37,6 @@ namespace DeviceLog.Classes.Modules.Keyboard
         /// <returns>This value is returned by the next hook procedure in the chain. The current hook procedure must also return this value. The meaning of the return value depends on the hook type. For more information, see the descriptions of the individual hook procedures</returns>
         [DllImport("user32.dll", CallingConvention = CallingConvention.StdCall)]
         private static extern IntPtr CallNextHookEx(IntPtr idHook, int nCode, IntPtr wParam, ref KbdllHookStruct lParam);
-
         /// <summary>
         /// Translates the specified virtual-key code and keyboard state to the corresponding Unicode character or characters.
         /// </summary>
@@ -53,7 +50,6 @@ namespace DeviceLog.Classes.Modules.Keyboard
         /// <returns>An integer value to indicate whether the virtual-key code could be translated to their unicode counterpart</returns>
         [DllImport("user32.dll")]
         private static extern int ToUnicodeEx(uint wVirtKey, uint wScanCode, byte[] lpKeyState, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder pwszBuff, int cchBuff, uint wFlags, IntPtr dwhkl);
-
         /// <summary>
         /// Retrieves the status of the specified virtual key. The status specifies whether the key is up, down, or toggled (on, off—alternating each time the key is pressed)
         /// </summary>
@@ -61,7 +57,6 @@ namespace DeviceLog.Classes.Modules.Keyboard
         /// <returns>A SHORT value. If the high-order bit is 1, the key is down; otherwise, it is up.</returns>
         [DllImport("user32.dll")]
         private static extern short GetKeyState(int nVirtKey);
-
         /// <summary>
         /// Copies the status of the 256 virtual keys to the specified buffer
         /// </summary>
@@ -69,7 +64,6 @@ namespace DeviceLog.Classes.Modules.Keyboard
         /// <returns>If the function succeeds, the return value is nonzero</returns>
         [DllImport("user32.dll", SetLastError = true)]
         private static extern int GetKeyboardState(byte[] lpKeyState);
-
         /// <summary>
         /// Retrieves the active input locale identifier (formerly called the keyboard layout)
         /// </summary>
@@ -86,13 +80,11 @@ namespace DeviceLog.Classes.Modules.Keyboard
         /// <param name="l">A pointer to a KbdllHookStruct structure</param>
         /// <returns>This value is returned by the next hook procedure in the chain</returns>
         private delegate IntPtr CallbackDelegate(int code, IntPtr w, ref KbdllHookStruct l);
-
         /// <summary>
         /// The declaration of a delegate that will be used to send key-press information to other objects
         /// </summary>
         /// <param name="key">The string value of the key that has been pressed</param>
         internal delegate void KeyPressedEvent(string key);
-
         /// <summary>
         /// Byte code for the shift key
         /// </summary>
@@ -139,7 +131,6 @@ namespace DeviceLog.Classes.Modules.Keyboard
         /// </summary>
         // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
         private CallbackDelegate _theHookCb;
-
         /// <summary>
         /// The event that will be fired when the low-level hook detects that a key was released upward
         /// </summary>
@@ -148,7 +139,6 @@ namespace DeviceLog.Classes.Modules.Keyboard
         /// The event that will be fired when the low-level hook detects that a key was pressed downwards
         /// </summary>
         internal KeyPressedEvent KeyDown;
-
         /// <summary>
         /// A boolean to indicate whether special keys should be logged or not
         /// </summary>
@@ -230,8 +220,8 @@ namespace DeviceLog.Classes.Modules.Keyboard
             GetKeyboardState(keyState);
 
             StringBuilder sbString = new StringBuilder(10);
-
-            int res = ToUnicodeEx(l.vkCode, l.scanCode, keyState, sbString, sbString.Capacity, l.flags, GetKeyboardLayout(0));
+            IntPtr hkLayout = GetKeyboardLayout((uint)System.Diagnostics.Process.GetCurrentProcess().Handle.ToInt32());
+            int res = ToUnicodeEx(l.vkCode, l.scanCode, keyState, sbString, sbString.Capacity, l.flags, hkLayout);
 
             // Key can be translated to unicode counterpart
             if (res == 1)
@@ -245,20 +235,9 @@ namespace DeviceLog.Classes.Modules.Keyboard
 
                 string result = key.ToString();
 
-                if (_logControlKeys)
+                if (char.IsControl(key) && _logControlKeys)
                 {
-                    if (char.IsControl(key))
-                    {
-                        switch (dataKey)
-                        {
-                            case Key.Back:
-                                result = "[Back]";
-                                break;
-                            case Key.Escape:
-                                result = "[ESC]";
-                                break;
-                        }
-                    }
+                    result = "[" + dataKey.ToString() + "]";
                 }
 
                 switch (kEvent)

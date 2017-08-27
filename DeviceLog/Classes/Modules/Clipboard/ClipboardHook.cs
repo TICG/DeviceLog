@@ -4,10 +4,10 @@ using System.Windows.Interop;
 
 namespace DeviceLog.Classes.Modules.Clipboard
 {
-    internal class ClipboardHook : IDisposable
+    internal sealed class ClipboardHook : IDisposable
     {
-        internal const int WmDrawclipboard = 0x0308;
-        internal const int WmChangecbchain = 0x030D;
+        private const int WmDrawclipboard = 0x0308;
+        private const int WmChangecbchain = 0x030D;
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         internal static extern IntPtr SetClipboardViewer(IntPtr hWndNewViewer);
@@ -25,7 +25,6 @@ namespace DeviceLog.Classes.Modules.Clipboard
         private bool _isViewing;
 
         internal delegate void ClipboardEvent(string data);
-
         internal ClipboardEvent ClipboardChanged;
 
         internal ClipboardHook(System.Windows.Window window)

@@ -1,4 +1,6 @@
 ﻿
+using System.Diagnostics;
+
 namespace DeviceLog.Classes.Log
 {
 
@@ -28,6 +30,7 @@ namespace DeviceLog.Classes.Log
         internal void AddKey(string key)
         {
             _data += key;
+            Debug.Write(key);
         }
 
         /// <summary>
