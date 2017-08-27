@@ -1,9 +1,8 @@
-﻿using System;
-using DeviceLog.Classes.Log;
+﻿using DeviceLog.Classes.Log;
 
 namespace DeviceLog.Classes.Modules.Clipboard
 {
-    internal class ClipboardModule
+    internal sealed class ClipboardModule
     {
         private readonly ClipboardHook _clipboardHook;
         private readonly ClipboardLog _clipboardLog;

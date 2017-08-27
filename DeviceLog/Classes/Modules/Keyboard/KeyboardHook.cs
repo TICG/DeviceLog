@@ -5,6 +5,7 @@ using System.Windows.Input;
 
 namespace DeviceLog.Classes.Modules.Keyboard
 {
+    /// <inheritdoc />
     /// <summary>
     /// A class that manages a global low level keyboard hook
     /// </summary>
@@ -19,7 +20,7 @@ namespace DeviceLog.Classes.Modules.Keyboard
         /// <param name="threadId">The thread ID of the hook</param>
         /// <returns>An integer to indicate whether the hook was successfully placed or not</returns>
         [DllImport("user32.dll", CallingConvention = CallingConvention.StdCall)]
-        private static extern IntPtr SetWindowsHookEx(int idHook, CallbackDelegate lpfn, int hInstance, int threadId);
+        private static extern IntPtr SetWindowsHookEx(int idHook, CallbackDelegate lpfn, IntPtr hInstance, uint threadId);
         /// <summary>
         /// Removes a hook procedure installed in a hook chain by the SetWindowsHookEx function.
         /// </summary>
@@ -168,7 +169,7 @@ namespace DeviceLog.Classes.Modules.Keyboard
         {
             if (_isHooked) return;
             _theHookCb = KeybHookProc;
-            _hookId = SetWindowsHookEx(13, _theHookCb, 0, 0);
+            _hookId = SetWindowsHookEx(13, _theHookCb, new IntPtr(0), 0);
             _isHooked = true;
         }
 
@@ -188,6 +189,7 @@ namespace DeviceLog.Classes.Modules.Keyboard
             Dispose();
         }
 
+        /// <inheritdoc />
         /// <summary>
         /// Safely remove the low-level keyboard hook
         /// </summary>
@@ -237,7 +239,7 @@ namespace DeviceLog.Classes.Modules.Keyboard
 
                 if (char.IsControl(key) && _logControlKeys)
                 {
-                    result = "[" + dataKey.ToString() + "]";
+                    result = "[" + dataKey + "]";
                 }
 
                 switch (kEvent)

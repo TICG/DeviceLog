@@ -1,9 +1,9 @@
-﻿
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace DeviceLog.Classes.Log
 {
 
+    /// <inheritdoc />
     /// <summary>
     /// A keyboard log class. This contains log information for the keyboard module
     /// </summary>
@@ -19,8 +19,8 @@ namespace DeviceLog.Classes.Log
         /// </summary>
         internal KeyboardLog()
         {
-            _data = "";
             LogType = LogType.Keyboard;
+            _data = "";
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace DeviceLog.Classes.Log
         /// Get the raw string data that was collected
         /// </summary>
         /// <returns>The raw string data that was previously collected</returns>
-        internal override string GetLog()
+        internal string GetLog()
         {
             return _data;
         }

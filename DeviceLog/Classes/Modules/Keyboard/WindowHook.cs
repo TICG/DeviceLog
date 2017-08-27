@@ -7,7 +7,7 @@ namespace DeviceLog.Classes.Modules.Keyboard
     /// <summary>
     /// A class that can be used to retrieve the title of the currently active window
     /// </summary>
-    internal class WindowHook
+    internal sealed class WindowHook
     {
         /// <summary>
         /// Retrieves a handle to the foreground window (the window with which the user is currently working). The system assigns a slightly higher priority to the thread that creates the foreground window than it does to other threads
@@ -23,7 +23,7 @@ namespace DeviceLog.Classes.Modules.Keyboard
         /// <param name="text">The buffer that will receive the text. If the string is as long or longer than the buffer, the string is truncated and terminated with a null character</param>
         /// <param name="count">The maximum number of characters to copy to the buffer, including the null character. If the text exceeds this limit, it is truncated</param>
         /// <returns>If the function succeeds, the return value is the length, in characters, of the copied string, not including the terminating null character. If the window has no title bar or text, if the title bar is empty, or if the window or control handle is invalid, the return value is zero</returns>
-        [DllImport("user32.dll")]
+        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
         private static extern int GetWindowText(IntPtr hWnd, StringBuilder text, int count);
 
         /// <summary>

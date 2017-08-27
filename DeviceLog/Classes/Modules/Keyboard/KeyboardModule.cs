@@ -6,7 +6,7 @@ namespace DeviceLog.Classes.Modules.Keyboard
     /// <summary>
     /// A class to enable or disable the keyboard hook and catch and pressed keys
     /// </summary>
-    internal class KeyboardModule
+    internal sealed class KeyboardModule
     {
         /// <summary>
         /// The KeyboardHook object that will be used to place a low-level keyboard hook and fire any events

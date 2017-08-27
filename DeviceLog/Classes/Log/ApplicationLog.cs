@@ -3,6 +3,7 @@ using System.Globalization;
 
 namespace DeviceLog.Classes.Log
 {
+    /// <inheritdoc />
     /// <summary>
     /// A class that represent a change in the application
     /// </summary>
@@ -24,6 +25,7 @@ namespace DeviceLog.Classes.Log
         /// <param name="logDate">A boolean to indicate whether the date and time should be logged or not</param>
         internal ApplicationLog(bool logDate)
         {
+            LogType = LogType.Application;
             _data = "";
             _logDate = logDate;
         }
@@ -42,7 +44,7 @@ namespace DeviceLog.Classes.Log
         /// Get the raw string data that was collected
         /// </summary>
         /// <returns>The raw string data that was previously collected</returns>
-        internal override string GetLog()
+        internal string GetLog()
         {
             return _data;
         }

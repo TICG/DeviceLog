@@ -2,6 +2,7 @@
 
 namespace DeviceLog.Classes.Log
 {
+    /// <inheritdoc />
     /// <summary>
     /// A class that represents collected clipboard data
     /// </summary>
@@ -49,7 +50,7 @@ namespace DeviceLog.Classes.Log
         /// Get the raw string data that was collected
         /// </summary>
         /// <returns>The raw string data that was previously collected</returns>
-        internal override string GetLog()
+        internal string GetLog()
         {
             return _data;
         }
