@@ -12,6 +12,7 @@ using MessageBox = System.Windows.MessageBox;
 
 namespace DeviceLog.Windows
 {
+    /// <inheritdoc cref="Syncfusion.Windows.Shared.ChromelessWindow" />
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -174,7 +175,7 @@ namespace DeviceLog.Windows
 
         private void AboutItem_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            new AboutWindow().ShowDialog();
         }
 
         private void OpenItem_Click(object sender, RoutedEventArgs e)
