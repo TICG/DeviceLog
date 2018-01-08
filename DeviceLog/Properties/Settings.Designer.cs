@@ -106,5 +106,17 @@ namespace DeviceLog.Properties {
                 this["KeyBoard_WindowTitle"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool KeyBoard_EnterNewLine {
+            get {
+                return ((bool)(this["KeyBoard_EnterNewLine"]));
+            }
+            set {
+                this["KeyBoard_EnterNewLine"] = value;
+            }
+        }
     }
 }

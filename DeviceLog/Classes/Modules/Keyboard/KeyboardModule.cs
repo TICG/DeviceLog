@@ -24,7 +24,7 @@ namespace DeviceLog.Classes.Modules.Keyboard
         /// <summary>
         /// A boolean to indicate whether the activated window title should be logged or not
         /// </summary>
-        private readonly bool _windowTitle;
+        private bool _windowTitle;
         /// <summary>
         /// The WindowModule that can retrieve the title of the active window
         /// </summary>
@@ -60,6 +60,42 @@ namespace DeviceLog.Classes.Modules.Keyboard
             }
 
             logController.AddLog(_log);
+        }
+
+        /// <summary>
+        /// Set whether special characters should be logged or not
+        /// </summary>
+        /// <param name="log">A boolean to indicate whether special character should be logged or not</param>
+        internal void SetLogSpecialCharacters(bool log)
+        {
+            _keyboardHook?.SetLogSpecialCharacters(log);
+        }
+
+        /// <summary>
+        /// Set whether control characters should be logged or not
+        /// </summary>
+        /// <param name="log">A boolean to indicate whether control characters should be logged or not</param>
+        internal void SetLogControlCharacters(bool log)
+        {
+            _keyboardHook?.SetLogControlCharacters(log);
+        }
+
+        /// <summary>
+        /// Set whether an enter key should be displayed as a new line or not
+        /// </summary>
+        /// <param name="log">A boolean to indicate whether the enter key should be displayed as a new line or not</param>
+        internal void SetLogEnterKeyNewLines(bool log)
+        {
+            _keyboardHook?.SetLogEnterKeyNewLines(log);
+        }
+
+        /// <summary>
+        /// Set whether the active window title should be logged or not
+        /// </summary>
+        /// <param name="log">A boolean to indicate whether the active window title should be logged or not</param>
+        internal void SetLogWindowTitle(bool log)
+        {
+            _windowTitle = log;
         }
 
         /// <summary>

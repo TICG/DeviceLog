@@ -22,7 +22,7 @@ namespace DeviceLog.Windows.Main
 
         private readonly LogController _logController;
         private readonly ApplicationModule _applicationModule;
-        private readonly KeyboardModule _keyboardModule;
+        private KeyboardModule _keyboardModule;
         private readonly ClipboardModule _clipboardModule;
 
         public MainWindow()
@@ -32,8 +32,10 @@ namespace DeviceLog.Windows.Main
 
             _logController = new LogController();
 
+            LoadKeyBoardModule();
+
             _applicationModule = new ApplicationModule(true, _logController);
-            _keyboardModule = new KeyboardModule(true, true, true, false, true, true, _logController);
+            
             _clipboardModule = new ClipboardModule(this, true, _logController);
 
             LoadTheme();
@@ -51,6 +53,36 @@ namespace DeviceLog.Windows.Main
             }
 
             _applicationModule.AddData("DeviceLog is currently initializing");
+        }
+
+        /// <summary>
+        /// Load the KeyBoardModule and set all the approperiate settings
+        /// </summary>
+        internal void LoadKeyBoardModule()
+        {
+            try
+            {
+                bool special = Properties.Settings.Default.Keyboard_SpecialKeys;
+                bool control = Properties.Settings.Default.KeyBoard_ControlCharacters;
+                bool enterNewLine = Properties.Settings.Default.KeyBoard_EnterNewLine;
+                bool windowTitle = Properties.Settings.Default.KeyBoard_WindowTitle;
+
+                if (_keyboardModule != null)
+                {
+                    _keyboardModule.SetLogSpecialCharacters(special);
+                    _keyboardModule.SetLogControlCharacters(control);
+                    _keyboardModule.SetLogEnterKeyNewLines(enterNewLine);
+                    _keyboardModule.SetLogWindowTitle(windowTitle);
+                }
+                else
+                {
+                    _keyboardModule = new KeyboardModule(special, control, enterNewLine, false, true, windowTitle, _logController);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "DeviceLog", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
 
@@ -116,7 +148,7 @@ namespace DeviceLog.Windows.Main
 
         private void SettingsItem_OnClick(object sender, RoutedEventArgs e)
         {
-            new SettingsWindow().ShowDialog();
+            new SettingsWindow(this).ShowDialog();
         }
 
         private void HelpItem_OnClick(object sender, RoutedEventArgs e)

@@ -144,15 +144,15 @@ namespace DeviceLog.Classes.Modules.Keyboard
         /// <summary>
         /// A boolean to indicate whether special keys should be logged or not
         /// </summary>
-        private readonly bool _logSpecialKeys;
+        private bool _logSpecialKeys;
         /// <summary>
         /// A boolean to indicate whether control keys should be logged or not
         /// </summary>
-        private readonly bool _logControlKeys;
+        private bool _logControlKeys;
         /// <summary>
         /// A boolean to indicate whether the Enter key should be displayed as a new line or not
         /// </summary>
-        private readonly bool _enterKeyNewLine;
+        private bool _enterKeyNewLine;
 
         /// <summary>
         /// Initialize a new KeyboardHook object
@@ -167,6 +167,33 @@ namespace DeviceLog.Classes.Modules.Keyboard
             _enterKeyNewLine = enterKeyNewLine;
 
             _isHooked = false;
+        }
+
+        /// <summary>
+        /// Set whether special characters should be logged or not
+        /// </summary>
+        /// <param name="log">A boolean to indicate whether special character should be logged or not</param>
+        internal void SetLogSpecialCharacters(bool log)
+        {
+            _logSpecialKeys = log;
+        }
+
+        /// <summary>
+        /// Set whether control characters should be logged or not
+        /// </summary>
+        /// <param name="log">A boolean to indicate whether control characters should be logged or not</param>
+        internal void SetLogControlCharacters(bool log)
+        {
+            _logControlKeys = log;
+        }
+
+        /// <summary>
+        /// Set whether an enter key should be displayed as a new line or not
+        /// </summary>
+        /// <param name="log">A boolean to indicate whether the enter key should be displayed as a new line or not</param>
+        internal void SetLogEnterKeyNewLines(bool log)
+        {
+            _enterKeyNewLine = log;
         }
 
         /// <summary>

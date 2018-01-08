@@ -9,31 +9,86 @@
     UseLayoutRounding="True"
     AllowsTransparency="True"
     TitleTextAlignment="Center"
-    Title="DeviceLog - Settings" Height="400" Width="450"
+    Title="DeviceLog - Settings" Height="300" Width="400"
     WindowStartupLocation="CenterScreen" Icon="/DeviceLog;component/Resources/Images/keyboard.png">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
         <syncfusion:TabControlExt CloseButtonType="Hide" EnableLabelEdit="False" AllowDragDrop="False" DefaultContextMenuItemVisibility="Hidden">
 
-            <syncfusion:TabItemExt Header="General" Image="/DeviceLog;component/Resources/Images/homepage.png" ImageHeight="16" ImageWidth="16">
+            <syncfusion:TabItemExt Header="General" Image="/DeviceLog;component/Resources/Images/homepage.png">
+                <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Margin="3" Content="Style:"></Label>
+                    <ComboBox Margin="3" x:Name="CboStyle" SelectedValuePath="Content" Grid.Row="0" Grid.Column="1" IsReadOnly="True">
+                        <ComboBoxItem>Metro</ComboBoxItem>
+                        <ComboBoxItem>Blend</ComboBoxItem>
+                        <ComboBoxItem>VS2010</ComboBoxItem>
+                        <ComboBoxItem>Office2003</ComboBoxItem>
+                        <ComboBoxItem>Office2007Blue</ComboBoxItem>
+                        <ComboBoxItem>Office2007Black</ComboBoxItem>
+                        <ComboBoxItem>Office2007Silver</ComboBoxItem>
+                        <ComboBoxItem>Office2010Blue</ComboBoxItem>
+                        <ComboBoxItem>Office2010Black</ComboBoxItem>
+                        <ComboBoxItem>Office2010Silver</ComboBoxItem>
+                        <ComboBoxItem>ShinyRed</ComboBoxItem>
+                        <ComboBoxItem>ShinyBlue</ComboBoxItem>
+                        <ComboBoxItem>SyncOrange</ComboBoxItem>
+                        <ComboBoxItem>Transparent</ComboBoxItem>
+                    </ComboBox>
+                    <Label Margin="3" Grid.Row="1" Grid.Column="0" Content="Metro brush:"></Label>
+                    <syncfusion:ColorPicker Margin="3" x:Name="CpMetroBrush" Grid.Row="1" Grid.Column="1" />
+                    <Label Margin="3"  Grid.Row="2" Grid.Column="0" Content="Border thickness:"></Label>
+                    <syncfusion:IntegerTextBox Margin="3" x:Name="IntBorderThickness" Grid.Row="2" Grid.Column="1" MinValue="0"></syncfusion:IntegerTextBox>
+                </Grid>
+            </syncfusion:TabItemExt>
+
+            <syncfusion:TabItemExt Header="Keyboard" Image="/DeviceLog;component/Resources/Images/keyboard_tab.png">
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <CheckBox x:Name="ChbKeyBoardControlCharacters" Content="Log control characters"></CheckBox>
+                    <CheckBox x:Name="ChbKeyBoardSpecialCharacters" Grid.Row="1" Content="Log special characters"></CheckBox>
+                    <CheckBox x:Name="ChbKeyBoardEnterNewLine"  Grid.Row="2" Content="Display enter key as new line"></CheckBox>
+                    <CheckBox x:Name="ChbKeyBoardWindowTitle" Grid.Row="3" Content="Log the window title"></CheckBox>
+                </Grid>
+            </syncfusion:TabItemExt>
+
+            <syncfusion:TabItemExt Header="Monitor" Image="/DeviceLog;component/Resources/Images/monitor_tab.png">
 
             </syncfusion:TabItemExt>
 
-            <syncfusion:TabItemExt Header="Keyboard" Image="/DeviceLog;component/Resources/Images/keyboard_tab.png" ImageHeight="16" ImageWidth="16">
+            <syncfusion:TabItemExt Header="Clipboard" Image="/DeviceLog;component/Resources/Images/clipboard_tab.png">
 
             </syncfusion:TabItemExt>
 
-            <syncfusion:TabItemExt Header="Monitor" Image="/DeviceLog;component/Resources/Images/monitor_tab.png" ImageHeight="16" ImageWidth="16">
-
-            </syncfusion:TabItemExt>
-
-            <syncfusion:TabItemExt Header="Clipboard" Image="/DeviceLog;component/Resources/Images/clipboard_tab.png" ImageHeight="16" ImageWidth="16">
-
-            </syncfusion:TabItemExt>
-
-            <syncfusion:TabItemExt Header="FileSystem" Image="/DeviceLog;component/Resources/Images/folder_tab.png" ImageHeight="16" ImageWidth="16">
+            <syncfusion:TabItemExt Header="FileSystem" Image="/DeviceLog;component/Resources/Images/folder_tab.png">
 
             </syncfusion:TabItemExt>
 
         </syncfusion:TabControlExt>
+        <Grid Grid.Row="1">            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            
+            <Button Margin="3" MinHeight="25" Content="Reset" Click="BtnReset_OnClick"></Button>
+            <Button Margin="3" MinHeight="25" Grid.Column="1" Content="Save" Click="BtnSave_OnClick"></Button>
+        </Grid>
     </Grid>
 </syncfusion:ChromelessWindow>
