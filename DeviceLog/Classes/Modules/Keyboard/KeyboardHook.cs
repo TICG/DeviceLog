@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Input;
@@ -148,16 +149,22 @@ namespace DeviceLog.Classes.Modules.Keyboard
         /// A boolean to indicate whether control keys should be logged or not
         /// </summary>
         private readonly bool _logControlKeys;
+        /// <summary>
+        /// A boolean to indicate whether the Enter key should be displayed as a new line or not
+        /// </summary>
+        private readonly bool _enterKeyNewLine;
 
         /// <summary>
         /// Initialize a new KeyboardHook object
         /// </summary>
         /// <param name="logSpecial">A boolean to indicate whether or not special keys should be logged</param>
         /// <param name="logControl">A boolean to indicate whether or not control keys should be logged</param>
-        internal KeyboardHook(bool logSpecial, bool logControl)
+        /// <param name="enterKeyNewLine">A boolean to indicate whetehr the Enter key should be displayed as a new line or not</param>
+        internal KeyboardHook(bool logSpecial, bool logControl, bool enterKeyNewLine)
         {
             _logSpecialKeys = logSpecial;
             _logControlKeys = logControl;
+            _enterKeyNewLine = enterKeyNewLine;
 
             _isHooked = false;
         }
@@ -222,7 +229,7 @@ namespace DeviceLog.Classes.Modules.Keyboard
             GetKeyboardState(keyState);
 
             StringBuilder sbString = new StringBuilder(10);
-            IntPtr hkLayout = GetKeyboardLayout((uint)System.Diagnostics.Process.GetCurrentProcess().Handle.ToInt32());
+            IntPtr hkLayout = GetKeyboardLayout((uint)Process.GetCurrentProcess().Handle.ToInt32());
             int res = ToUnicodeEx(l.vkCode, l.scanCode, keyState, sbString, sbString.Capacity, l.flags, hkLayout);
 
             // Key can be translated to unicode counterpart
@@ -239,7 +246,14 @@ namespace DeviceLog.Classes.Modules.Keyboard
 
                 if (char.IsControl(key) && _logControlKeys)
                 {
-                    result = "[" + dataKey + "]";
+                    if (dataKey == Key.Enter && _enterKeyNewLine)
+                    {
+                        result = Environment.NewLine;
+                    }
+                    else
+                    {
+                        result = "[" + dataKey + "]";
+                    }
                 }
 
                 switch (kEvent)

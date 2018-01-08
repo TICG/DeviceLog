@@ -33,7 +33,7 @@ namespace DeviceLog.Windows
             _logController = new LogController();
 
             _applicationModule = new ApplicationModule(true, _logController);
-            _keyboardModule = new KeyboardModule(true, true, false, true, true, _logController);
+            _keyboardModule = new KeyboardModule(true, true, true, false, true, true, _logController);
             _clipboardModule = new ClipboardModule(this, true, _logController);
 
             LoadTheme();
