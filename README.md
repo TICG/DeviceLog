@@ -1,4 +1,7 @@
 # DeviceLog
+
+![Example](https://codedead.com/wp-content/uploads/2018/01/test.gif)
+
 DeviceLog is a work in progress. This is a device monitoring software capable of reading every keypress in every language.
 It also has capabilities to capture screenshots periodically and monitor for filesystem changes.
 
