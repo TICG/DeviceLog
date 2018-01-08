@@ -15,7 +15,7 @@ namespace DeviceLog.Classes.Log
         /// <summary>
         /// A boolean to indicate whether or not the date and time should be logged
         /// </summary>
-        private readonly bool _logDate;
+        private bool _logDate;
 
         /// <summary>
         /// Initialize a new ClipBoardLog object
@@ -26,6 +26,15 @@ namespace DeviceLog.Classes.Log
             LogType = LogType.Clipboard;
             _data = "";
             _logDate = logDate;
+        }
+
+        /// <summary>
+        /// Set whether date and time should be logged
+        /// </summary>
+        /// <param name="log">A boolean to indicate whether date and time should be logged or not</param>
+        internal void SetLogDate(bool log)
+        {
+            _logDate = log;
         }
 
         /// <summary>

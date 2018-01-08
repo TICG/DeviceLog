@@ -118,5 +118,17 @@ namespace DeviceLog.Properties {
                 this["KeyBoard_EnterNewLine"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ClipBoard_LogDateTime {
+            get {
+                return ((bool)(this["ClipBoard_LogDateTime"]));
+            }
+            set {
+                this["ClipBoard_LogDateTime"] = value;
+            }
+        }
     }
 }

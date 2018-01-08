@@ -73,7 +73,9 @@
             </syncfusion:TabItemExt>
 
             <syncfusion:TabItemExt Header="Clipboard" Image="/DeviceLog;component/Resources/Images/clipboard_tab.png">
-
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <CheckBox x:Name="ChbClipboardLogDate" Content="Log date and time"></CheckBox>
+                </Grid>
             </syncfusion:TabItemExt>
 
             <syncfusion:TabItemExt Header="FileSystem" Image="/DeviceLog;component/Resources/Images/folder_tab.png">

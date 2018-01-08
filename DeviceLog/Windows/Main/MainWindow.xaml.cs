@@ -23,7 +23,7 @@ namespace DeviceLog.Windows.Main
         private readonly LogController _logController;
         private readonly ApplicationModule _applicationModule;
         private KeyboardModule _keyboardModule;
-        private readonly ClipboardModule _clipboardModule;
+        private ClipboardModule _clipboardModule;
 
         public MainWindow()
         {
@@ -33,10 +33,9 @@ namespace DeviceLog.Windows.Main
             _logController = new LogController();
 
             LoadKeyBoardModule();
+            LoadClipboardModule();
 
             _applicationModule = new ApplicationModule(true, _logController);
-            
-            _clipboardModule = new ClipboardModule(this, true, _logController);
 
             LoadTheme();
 
@@ -85,6 +84,28 @@ namespace DeviceLog.Windows.Main
             }
         }
 
+        /// <summary>
+        /// Load the ClipBoardModule and set all the appropriate settings
+        /// </summary>
+        internal void LoadClipboardModule()
+        {
+            try
+            {
+                bool logDate = Properties.Settings.Default.ClipBoard_LogDateTime;
+                if (_clipboardModule != null)
+                {
+                    _clipboardModule.SetLogDate(logDate);
+                }
+                else
+                {
+                    _clipboardModule = new ClipboardModule(this, logDate, _logController);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "DeviceLog", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
 
         /// <summary>
         /// Change the visual style of the controls, depending on the settings

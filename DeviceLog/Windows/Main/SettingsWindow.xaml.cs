@@ -34,10 +34,14 @@ namespace DeviceLog.Windows.Main
                 CpMetroBrush.Color = Properties.Settings.Default.MetroColor;
                 IntBorderThickness.Value = Properties.Settings.Default.BorderThickness;
 
+                //Keyboard
                 ChbKeyBoardControlCharacters.IsChecked = Properties.Settings.Default.KeyBoard_ControlCharacters;
                 ChbKeyBoardEnterNewLine.IsChecked = Properties.Settings.Default.KeyBoard_EnterNewLine;
                 ChbKeyBoardSpecialCharacters.IsChecked = Properties.Settings.Default.Keyboard_SpecialKeys;
                 ChbKeyBoardWindowTitle.IsChecked = Properties.Settings.Default.KeyBoard_WindowTitle;
+
+                //Clipboard
+                ChbClipboardLogDate.IsChecked = Properties.Settings.Default.ClipBoard_LogDateTime;
             }
             catch (Exception ex)
             {
@@ -56,15 +60,19 @@ namespace DeviceLog.Windows.Main
                 Properties.Settings.Default.MetroColor = CpMetroBrush.Color;
                 if (IntBorderThickness.Value != null) Properties.Settings.Default.BorderThickness = (int) IntBorderThickness.Value;
 
+                //Keyboard
                 if (ChbKeyBoardControlCharacters.IsChecked != null) Properties.Settings.Default.KeyBoard_ControlCharacters = ChbKeyBoardControlCharacters.IsChecked.Value;
                 if (ChbKeyBoardEnterNewLine.IsChecked != null) Properties.Settings.Default.KeyBoard_EnterNewLine = ChbKeyBoardEnterNewLine.IsChecked.Value;
                 if (ChbKeyBoardSpecialCharacters.IsChecked != null) Properties.Settings.Default.Keyboard_SpecialKeys = ChbKeyBoardSpecialCharacters.IsChecked.Value;
                 if (ChbKeyBoardWindowTitle.IsChecked != null) Properties.Settings.Default.KeyBoard_WindowTitle = ChbKeyBoardWindowTitle.IsChecked.Value;
+                //Clipboard
+                if (ChbClipboardLogDate.IsChecked != null) Properties.Settings.Default.ClipBoard_LogDateTime = ChbClipboardLogDate.IsChecked.Value;
 
                 Properties.Settings.Default.Save();
 
                 _mainWindow.LoadTheme();
                 _mainWindow.LoadKeyBoardModule();
+                _mainWindow.LoadClipboardModule();
 
                 ChangeVisualStyle();
             }

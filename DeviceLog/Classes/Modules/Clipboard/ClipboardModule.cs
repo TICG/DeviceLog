@@ -17,6 +17,11 @@ namespace DeviceLog.Classes.Modules.Clipboard
             logController.AddLog(_clipboardLog);
         }
 
+        internal void SetLogDate(bool log)
+        {
+            _clipboardLog?.SetLogDate(log);
+        }
+
         private void ClipboardChanged(string data)
         {
             _clipboardLog.AddData(data);
