@@ -69,7 +69,7 @@ namespace DeviceLog.Windows
         /// <param name="e">The routed event arguments</param>
         private void ToggleButton_CheckChanged(object sender, RoutedEventArgs e)
         {
-            ToggleButton toggleButton = sender as ToggleButton;
+            ToggleButton toggleButton = (ToggleButton) sender;
             if (toggleButton == null) return;
 
             toggleButton.Content = toggleButton.IsChecked == true ? "ON" : "OFF";
@@ -116,7 +116,7 @@ namespace DeviceLog.Windows
 
         private void SettingsItem_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            new SettingsWindow().ShowDialog();
         }
 
         private void HelpItem_OnClick(object sender, RoutedEventArgs e)
