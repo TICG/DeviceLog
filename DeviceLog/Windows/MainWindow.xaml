@@ -12,9 +12,8 @@
     AllowsTransparency="True"
     BorderThickness="3"
     Title="DeviceLog" Width="500" Height="250" WindowStartupLocation="CenterScreen" Icon="/DeviceLog;component/Resources/Images/keyboard.png">
-    
+
     <Grid>
-        
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -43,9 +42,7 @@
                     </MenuItem>
                 </ContextMenu>
             </tb:TaskbarIcon.ContextMenu>
-
         </tb:TaskbarIcon>
-        
 
         <Menu Grid.Row="0" IsMainMenu="True">
             <MenuItem Header="File">
@@ -109,12 +106,12 @@
             Grid.Row="1"
             HorizontalAlignment="Center"
             VerticalAlignment="Center">
-            
+
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
-            
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -185,8 +182,6 @@
                 Margin="5"
                 Checked="ToggleButton_CheckChanged"
                 Unchecked="ToggleButton_CheckChanged"/>
-
         </Grid>
-
     </Grid>
 </syncfusion:ChromelessWindow>
