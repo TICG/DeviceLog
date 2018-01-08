@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Windows;
 using DeviceLog.Classes.GUI;
 
-namespace DeviceLog.Windows
+namespace DeviceLog.Windows.Main
 {
     /// <inheritdoc cref="Syncfusion.Windows.Shared.ChromelessWindow" />
     /// <summary>

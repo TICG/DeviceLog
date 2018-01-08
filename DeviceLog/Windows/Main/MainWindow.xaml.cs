@@ -10,7 +10,7 @@ using DeviceLog.Classes.Modules.Keyboard;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
 
-namespace DeviceLog.Windows
+namespace DeviceLog.Windows.Main
 {
     /// <inheritdoc cref="Syncfusion.Windows.Shared.ChromelessWindow" />
     /// <summary>

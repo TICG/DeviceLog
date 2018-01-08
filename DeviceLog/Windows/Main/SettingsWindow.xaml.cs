@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using DeviceLog.Classes.GUI;
 
-namespace DeviceLog.Windows
+namespace DeviceLog.Windows.Main
 {
     /// <inheritdoc cref="Syncfusion.Windows.Shared.ChromelessWindow" />
     /// <summary>
