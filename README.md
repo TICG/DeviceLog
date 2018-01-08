@@ -5,6 +5,16 @@ It also has capabilities to capture screenshots periodically and monitor for fil
 # About
 DeviceLog was created by DeadLine. This software is a work in progress and will be released free of charge when all functions and features have been implemented and are working as they should.
 
+# TODO
+* Being able to view keyboard logs
+* Being able to view clipboard logs
+* Being able to view filesystem logs
+* Being able to view screencapture logs
+* Refactoring
+* Settings
+* FileSystem module
+* Screencapture module
+
 # Requirements
 
 * [Visual Studio](https://visualstudio.com)
