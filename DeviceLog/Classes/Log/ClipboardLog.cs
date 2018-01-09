@@ -9,10 +9,6 @@ namespace DeviceLog.Classes.Log
     internal class ClipboardLog : Log
     {
         /// <summary>
-        /// The raw collected data from the clipboard
-        /// </summary>
-        private string _data;
-        /// <summary>
         /// A boolean to indicate whether or not the date and time should be logged
         /// </summary>
         private bool _logDate;
@@ -24,7 +20,7 @@ namespace DeviceLog.Classes.Log
         internal ClipboardLog(bool logDate)
         {
             LogType = LogType.Clipboard;
-            _data = "";
+            Data = "";
             _logDate = logDate;
         }
 
@@ -41,27 +37,23 @@ namespace DeviceLog.Classes.Log
         /// Add raw string data to the current log
         /// </summary>
         /// <param name="data">The raw string data that should be added to the log</param>
-        internal void AddData(string data)
+        internal new void AddData(string data)
         {
-            _data += Environment.NewLine;
+            if (Data.Length != 0)
+            {
+                Data += Environment.NewLine;
+            }
+
             if (_logDate)
             {
-                _data += "[" + DateTime.Now + "]" + data;
+                Data += "[" + DateTime.Now + "]" + data;
             }
             else
             {
-                _data += Environment.NewLine;
-                _data += data;
+                Data += data;
             }
-        }
 
-        /// <summary>
-        /// Get the raw string data that was collected
-        /// </summary>
-        /// <returns>The raw string data that was previously collected</returns>
-        internal string GetLog()
-        {
-            return _data;
+            LogUpdatedEvent?.Invoke(Data);
         }
     }
 }

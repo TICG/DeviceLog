@@ -27,15 +27,15 @@ namespace DeviceLog.Windows.Main
 
         public MainWindow()
         {
+            _logController = new LogController();
+            _applicationModule = new ApplicationModule(true, _logController);
+            _applicationModule.AddData("DeviceLog is currently initializing...");
+
             InitializeComponent();
             _updateManager = new UpdateManager.UpdateManager(System.Reflection.Assembly.GetExecutingAssembly().GetName().Version, "https://codedead.com/Software/DeviceLog/update.xml", "DeviceLog");
 
-            _logController = new LogController();
-
             LoadKeyBoardModule();
             LoadClipboardModule();
-
-            _applicationModule = new ApplicationModule(true, _logController);
 
             LoadTheme();
 
@@ -50,8 +50,7 @@ namespace DeviceLog.Windows.Main
             {
                 MessageBox.Show(this, ex.Message, "DeviceLog", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
-            _applicationModule.AddData("DeviceLog is currently initializing");
+            _applicationModule.AddData("DeviceLog is done initializing.");
         }
 
         /// <summary>
@@ -59,6 +58,7 @@ namespace DeviceLog.Windows.Main
         /// </summary>
         internal void LoadKeyBoardModule()
         {
+            _applicationModule.AddData("DeviceLog is currently loading the keyboard module...");
             try
             {
                 bool special = Properties.Settings.Default.Keyboard_SpecialKeys;
@@ -81,7 +81,9 @@ namespace DeviceLog.Windows.Main
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "DeviceLog", MessageBoxButton.OK, MessageBoxImage.Error);
+                _applicationModule.AddData("Error occured while loading keyboard module: " + ex.Message);
             }
+            _applicationModule.AddData("DeviceLog is done loading the keyboard module.");
         }
 
         /// <summary>
@@ -89,6 +91,7 @@ namespace DeviceLog.Windows.Main
         /// </summary>
         internal void LoadClipboardModule()
         {
+            _applicationModule.AddData("DeviceLog is currently loading the clipboard module...");
             try
             {
                 bool logDate = Properties.Settings.Default.ClipBoard_LogDateTime;
@@ -103,8 +106,10 @@ namespace DeviceLog.Windows.Main
             }
             catch (Exception ex)
             {
+                _applicationModule.AddData("Error occured while loading keyboard module: " + ex.Message);
                 MessageBox.Show(ex.Message, "DeviceLog", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            _applicationModule.AddData("DeviceLog is done loading the clipboard module.");
         }
 
         /// <summary>
@@ -112,7 +117,9 @@ namespace DeviceLog.Windows.Main
         /// </summary>
         internal void LoadTheme()
         {
+            _applicationModule.AddData("DeviceLog is currently changing the theme...");
             StyleManager.ChangeStyle(this);
+            _applicationModule.AddData("DeviceLog is done changing the theme.");
         }
 
         /// <summary>
@@ -132,24 +139,24 @@ namespace DeviceLog.Windows.Main
                 case "TgbKeyboard":
                     if (toggleButton.IsChecked == true)
                     {
-                        _applicationModule.AddData("The keyboard module has been activated");
+                        _applicationModule.AddData("The keyboard module has been activated!");
                         _keyboardModule.Start();
                     }
                     else
                     {
-                        _applicationModule.AddData("The keyboard module has been disabled");
+                        _applicationModule.AddData("The keyboard module has been disabled!");
                         _keyboardModule.Stop();
                     }
                     break;
                 case "TgbClipboard":
                     if (toggleButton.IsChecked == true)
                     {
-                        _applicationModule.AddData("The clipboard module has been activated");
+                        _applicationModule.AddData("The clipboard module has been activated!");
                         _clipboardModule.Start();
                     }
                     else
                     {
-                        _applicationModule.AddData("The keyboard module has been disabled");
+                        _applicationModule.AddData("The keyboard module has been disabled!");
                         _clipboardModule.Stop();
                     }
                     break;
@@ -169,80 +176,120 @@ namespace DeviceLog.Windows.Main
 
         private void SettingsItem_OnClick(object sender, RoutedEventArgs e)
         {
+            _applicationModule.AddData("DeviceLog is currently showing the settings window...");
             new SettingsWindow(this).ShowDialog();
+            _applicationModule.AddData("DeviceLog is done showing the settings window..");
         }
 
         private void HelpItem_OnClick(object sender, RoutedEventArgs e)
         {
+            _applicationModule.AddData("DeviceLog is currently loading the help documentation...");
             try
             {
                 Process.Start(AppDomain.CurrentDomain.BaseDirectory + "\\help.pdf");
             }
             catch (Exception ex)
             {
+                _applicationModule.AddData("Error occured while loading help documentation: " + ex.Message);
                 MessageBox.Show(this, ex.Message, "DeviceLog", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            _applicationModule.AddData("DeviceLog is done loading the help documentation.");
         }
 
         private void UpdateItem_OnClick(object sender, RoutedEventArgs e)
         {
-            _applicationModule.AddData("DeviceLog is checking for updates");
+            _applicationModule.AddData("DeviceLog is currently checking for updates...");
             _updateManager.CheckForUpdate(true, true);
+            _applicationModule.AddData("DeviceLog is done checking for updates...");
         }
 
         private void HomePageItem_OnClick(object sender, RoutedEventArgs e)
         {
+            _applicationModule.AddData("DeviceLog is currently opening the CodeDead website...");
             try
             {
                 Process.Start("https://codedead.com/");
             }
             catch (Exception ex)
             {
+                _applicationModule.AddData("Error occured while opening CodeDead site: " + ex.Message);
                 MessageBox.Show(this, ex.Message, "DeviceLog", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            _applicationModule.AddData("DeviceLog is done opening the CodeDead website.");
         }
 
         private void LicenseItem_OnClick(object sender, RoutedEventArgs e)
         {
+            _applicationModule.AddData("DeviceLog is currently loading the license...");
             try
             {
                 Process.Start(AppDomain.CurrentDomain.BaseDirectory + "\\gpl.pdf");
             }
             catch (Exception ex)
             {
+                _applicationModule.AddData("Error occured while loading license: " + ex.Message);
                 MessageBox.Show(this, ex.Message, "DeviceLog", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            _applicationModule.AddData("DeviceLog is done loading the license.");
         }
 
         private void DonateItem_OnClick(object sender, RoutedEventArgs e)
         {
+            _applicationModule.AddData("DeviceLog is currently loading the donation page...");
             try
             {
                 Process.Start("https://codedead.com/?page_id=302");
             }
             catch (Exception ex)
             {
+                _applicationModule.AddData("Error occured while loading donation page: " + ex.Message);
                 MessageBox.Show(this, ex.Message, "DeviceLog", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            _applicationModule.AddData("DeviceLog is done loading the donation page...");
         }
 
         private void AboutItem_OnClick(object sender, RoutedEventArgs e)
         {
+            _applicationModule.AddData("DeviceLog is currently showing the About window...");
             new AboutWindow().ShowDialog();
+            _applicationModule.AddData("DeviceLog is done showing the About window.");
         }
 
         private void OpenItem_Click(object sender, RoutedEventArgs e)
         {
             if (IsVisible)
             {
-                _applicationModule.AddData("DeviceLog window has been hidden");
+                _applicationModule.AddData("DeviceLog window has been hidden.");
                 Hide();
             }
             else
             {
-                _applicationModule.AddData("DeviceLog window has been shown to the user");
+                _applicationModule.AddData("DeviceLog window has been shown to the user.");
                 Show();
             }
+        }
+
+        private void BtnKeyBoardLogs_OnClick(object sender, RoutedEventArgs e)
+        {
+            _applicationModule.AddData("DeviceLog is currently showing the keyboard logs to the user...");
+            Log l = _logController.GetKeyboardLogs()[_logController.GetKeyboardLogs().Count - 1];
+            new LogWindow(l).ShowDialog();
+            _applicationModule.AddData("DeviceLog is done showing the keyboard logs to the user.");
+        }
+
+        private void BtnClipboardLogs_OnClick(object sender, RoutedEventArgs e)
+        {
+            _applicationModule.AddData("DeviceLog is currently showing the clipboard logs to the user...");
+            Log l = _logController.GetClipboardLogs()[_logController.GetClipboardLogs().Count - 1];
+            new LogWindow(l).ShowDialog();
+            _applicationModule.AddData("DeviceLog is done showing the clipboard logs to the user.");
+        }
+
+        private void ApplicationLogsItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            _applicationModule.AddData("DeviceLog is currently showing the application logs to the user...");
+            new LogWindow(_applicationModule.GetLog()).ShowDialog();
+            _applicationModule.AddData("DeviceLog is done showing the application logs to the user.");
         }
     }
 }
