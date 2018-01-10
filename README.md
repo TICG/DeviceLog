@@ -15,6 +15,7 @@ DeviceLog was created by DeadLine. This software is a work in progress and will 
 * ~~Being able to view filesystem logs~~
 * Being able to view screencapture logs
 * Settings
+* Saving/Exporting logs
 * GUI improvements
 * Refactoring
 
