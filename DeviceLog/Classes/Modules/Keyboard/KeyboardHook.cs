@@ -32,15 +32,15 @@ namespace DeviceLog.Classes.Modules.Keyboard
         /// <summary>
         /// Passes the hook information to the next hook procedure in the current hook chain. A hook procedure can call this function either before or after processing the hook information
         /// </summary>
-        /// <param name="idHook"></param>
-        /// <param name="nCode">The hook code passed to the current hook procedure. The next hook procedure uses this code to determine how to process the hook information.</param>
+        /// <param name="idHook">This parameter is ignored</param>
+        /// <param name="nCode">The hook code passed to the current hook procedure. The next hook procedure uses this code to determine how to process the hook information</param>
         /// <param name="wParam">The wParam value passed to the current hook procedure. The meaning of this parameter depends on the type of hook associated with the current hook chain</param>
         /// <param name="lParam">The lParam value passed to the current hook procedure. The meaning of this parameter depends on the type of hook associated with the current hook chain</param>
         /// <returns>This value is returned by the next hook procedure in the chain. The current hook procedure must also return this value. The meaning of the return value depends on the hook type. For more information, see the descriptions of the individual hook procedures</returns>
         [DllImport("user32.dll", CallingConvention = CallingConvention.StdCall)]
         private static extern IntPtr CallNextHookEx(IntPtr idHook, int nCode, IntPtr wParam, ref KbdllHookStruct lParam);
         /// <summary>
-        /// Translates the specified virtual-key code and keyboard state to the corresponding Unicode character or characters.
+        /// Translates the specified virtual-key code and keyboard state to the corresponding Unicode character or characters
         /// </summary>
         /// <param name="wVirtKey">The virtual-key code to be translated</param>
         /// <param name="wScanCode">The hardware scan code of the key to be translated. The high-order bit of this value is set if the key is up</param>
@@ -56,7 +56,7 @@ namespace DeviceLog.Classes.Modules.Keyboard
         /// Retrieves the status of the specified virtual key. The status specifies whether the key is up, down, or toggled (on, off—alternating each time the key is pressed)
         /// </summary>
         /// <param name="nVirtKey">A virtual key. If the desired virtual key is a letter or digit (A through Z, a through z, or 0 through 9), nVirtKey must be set to the ASCII value of that character. For other keys, it must be a virtual-key code</param>
-        /// <returns>A SHORT value. If the high-order bit is 1, the key is down; otherwise, it is up.</returns>
+        /// <returns>A SHORT value. If the high-order bit is 1, the key is down; otherwise, it is up</returns>
         [DllImport("user32.dll")]
         private static extern short GetKeyState(int nVirtKey);
         /// <summary>
