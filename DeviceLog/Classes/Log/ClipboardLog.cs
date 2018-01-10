@@ -46,12 +46,9 @@ namespace DeviceLog.Classes.Log
 
             if (_logDate)
             {
-                Data += "[" + DateTime.Now + "]" + data;
+                Data += "[" + DateTime.Now + "]";
             }
-            else
-            {
-                Data += data;
-            }
+            Data += data;
 
             LogUpdatedEvent?.Invoke(Data);
         }

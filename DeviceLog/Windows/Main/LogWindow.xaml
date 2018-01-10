@@ -11,6 +11,10 @@
     TitleTextAlignment="Center"
     Title="DeviceLog - Logs" Height="300" Width="300" WindowStartupLocation="CenterScreen" Icon="/DeviceLog;component/Resources/Images/keyboard.png">
     <Grid>
-        <TextBox x:Name="TxtLog" IsReadOnly="True" TextWrapping="Wrap"></TextBox>
+        <TextBox x:Name="TxtLog"
+                 IsReadOnly="True"
+                 TextWrapping="Wrap"
+                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto"></TextBox>
     </Grid>
 </syncfusion:ChromelessWindow>

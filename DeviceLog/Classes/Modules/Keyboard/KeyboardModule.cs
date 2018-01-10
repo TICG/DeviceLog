@@ -137,14 +137,5 @@ namespace DeviceLog.Classes.Modules.Keyboard
         {
             _keyboardHook.Unhook();
         }
-
-        /// <summary>
-        /// Get all available logs that have been collected by this module
-        /// </summary>
-        /// <returns></returns>
-        internal KeyboardLog GetLog()
-        {
-            return _log;
-        }
     }
 }

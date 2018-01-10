@@ -73,7 +73,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Classes\Log\FileSystemLog.cs" />
     <Compile Include="Classes\Log\LogMethods.cs" />
+    <Compile Include="Classes\Modules\FileSystem\FileSystemModule.cs" />
     <Compile Include="Windows\Main\LogWindow.xaml.cs">
       <DependentUpon>LogWindow.xaml</DependentUpon>
     </Compile>

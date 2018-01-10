@@ -35,7 +35,11 @@ namespace DeviceLog.Classes.Log
             {
                 Data += Environment.NewLine;
             }
-            Data += _logDate ? "[" + DateTime.Now.ToString(CultureInfo.CurrentCulture) + "]" + data : data;
+            if (_logDate)
+            {
+                Data += "[" + DateTime.Now + "]";
+            }
+            Data += data;
             LogUpdatedEvent?.Invoke(Data);
         }
     }

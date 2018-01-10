@@ -36,10 +36,5 @@ namespace DeviceLog.Classes.Modules.Clipboard
         {
             _clipboardHook.Unhook();
         }
-
-        internal ClipboardLog GetLog()
-        {
-            return _clipboardLog;
-        }
     }
 }

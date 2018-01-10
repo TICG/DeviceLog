@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using DeviceLog.Classes.GUI;
 using DeviceLog.Classes.Log;
 using DeviceLog.Classes.Modules.Application;
 using DeviceLog.Classes.Modules.Clipboard;
+using DeviceLog.Classes.Modules.FileSystem;
 using DeviceLog.Classes.Modules.Keyboard;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
@@ -24,6 +26,7 @@ namespace DeviceLog.Windows.Main
         private readonly ApplicationModule _applicationModule;
         private KeyboardModule _keyboardModule;
         private ClipboardModule _clipboardModule;
+        private FileSystemModule _fileSystemModule;
 
         public MainWindow()
         {
@@ -36,6 +39,7 @@ namespace DeviceLog.Windows.Main
 
             LoadKeyBoardModule();
             LoadClipboardModule();
+            LoadFileSystemModule();
 
             LoadTheme();
 
@@ -112,6 +116,13 @@ namespace DeviceLog.Windows.Main
             _applicationModule.AddData("DeviceLog is done loading the clipboard module.");
         }
 
+        internal void LoadFileSystemModule()
+        {
+            _applicationModule.AddData("DeviceLog is currently loading the FileSystem module...");
+            _fileSystemModule = new FileSystemModule(Path.GetPathRoot(Environment.SystemDirectory), "*.*", true, true, true, true, true, _logController);
+            _applicationModule.AddData("DeviceLog is done loading the FileSystem module.");
+        }
+
         /// <summary>
         /// Change the visual style of the controls, depending on the settings
         /// </summary>
@@ -158,6 +169,18 @@ namespace DeviceLog.Windows.Main
                     {
                         _applicationModule.AddData("The keyboard module has been disabled!");
                         _clipboardModule.Stop();
+                    }
+                    break;
+                case "TgbFileSystem":
+                    if (toggleButton.IsChecked == true)
+                    {
+                        _applicationModule.AddData("The FileSystem module has been activated!");
+                        _fileSystemModule.Start();
+                    }
+                    else
+                    {
+                        _applicationModule.AddData("The FileSystem module has been disabled!");
+                        _fileSystemModule.Stop();
                     }
                     break;
             }
@@ -290,6 +313,14 @@ namespace DeviceLog.Windows.Main
             _applicationModule.AddData("DeviceLog is currently showing the application logs to the user...");
             new LogWindow(_applicationModule.GetLog()).ShowDialog();
             _applicationModule.AddData("DeviceLog is done showing the application logs to the user.");
+        }
+
+        private void BtnFileSystemLogs_OnClick(object sender, RoutedEventArgs e)
+        {
+            _applicationModule.AddData("DeviceLog is currently showing the FileSystem logs to the user...");
+            Log l = _logController.GetFileSystemLogs()[_logController.GetFileSystemLogs().Count - 1];
+            new LogWindow(l).ShowDialog();
+            _applicationModule.AddData("DeviceLog is done showing the FileSystem logs to the user.");
         }
     }
 }

@@ -173,7 +173,7 @@
                 Checked="ToggleButton_CheckChanged"
                 Unchecked="ToggleButton_CheckChanged"/>
 
-            <Button Grid.Row="0" Grid.Column="3" Margin="5">
+            <Button Grid.Row="0" Grid.Column="3" Margin="5" Click="BtnFileSystemLogs_OnClick">
                 <Image
                     Source="/DeviceLog;component/Resources/Images/folder.png"
                     ToolTip="FileSystem module"
@@ -181,7 +181,7 @@
                     Height="96"/>
             </Button>
 
-            <ToggleButton
+            <ToggleButton x:Name="TgbFileSystem"
                 Grid.Row="1"
                 Grid.Column="3"
                 Content="OFF"
