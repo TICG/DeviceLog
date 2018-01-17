@@ -5,7 +5,7 @@ namespace DeviceLog.Classes.Modules.Application
     /// <summary>
     /// A class to enable the collection of application logs
     /// </summary>
-    internal sealed class ApplicationModule
+    public sealed class ApplicationModule
     {
         /// <summary>
         /// The application log that contains all log data

@@ -23,6 +23,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
                     <Grid>
                         <Grid.RowDefinitions>
@@ -57,6 +58,7 @@
                         <syncfusion:IntegerTextBox Margin="3" x:Name="IntBorderThickness" Grid.Row="2" Grid.Column="1" MinValue="0"></syncfusion:IntegerTextBox>
                     </Grid>
                     <CheckBox x:Name="ChbLogApplication" Grid.Row="1" Content="Log application events" Margin="8,3,0,0" />
+                    <CheckBox x:Name="ChbLogScrollToEnd" Grid.Row="2" Content="Always scroll to the end of a log" Margin="8,3,0,0" />
                 </Grid>
             </syncfusion:TabItemExt>
 

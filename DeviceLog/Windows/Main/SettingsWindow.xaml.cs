@@ -34,6 +34,7 @@ namespace DeviceLog.Windows.Main
                 CpMetroBrush.Color = Properties.Settings.Default.MetroColor;
                 IntBorderThickness.Value = Properties.Settings.Default.BorderThickness;
                 ChbLogApplication.IsChecked = Properties.Settings.Default.Application_Log;
+                ChbLogScrollToEnd.IsChecked = Properties.Settings.Default.LogWindow_ScrollToEnd;
 
                 //Keyboard
                 ChbKeyBoardControlCharacters.IsChecked = Properties.Settings.Default.KeyBoard_ControlCharacters;
@@ -61,6 +62,7 @@ namespace DeviceLog.Windows.Main
                 Properties.Settings.Default.MetroColor = CpMetroBrush.Color;
                 if (IntBorderThickness.Value != null) Properties.Settings.Default.BorderThickness = (int) IntBorderThickness.Value;
                 if (ChbLogApplication.IsChecked != null) Properties.Settings.Default.Application_Log = ChbLogApplication.IsChecked.Value;
+                if (ChbLogScrollToEnd.IsChecked != null) Properties.Settings.Default.LogWindow_ScrollToEnd = ChbLogScrollToEnd.IsChecked.Value;
 
                 //Keyboard
                 if (ChbKeyBoardControlCharacters.IsChecked != null) Properties.Settings.Default.KeyBoard_ControlCharacters = ChbKeyBoardControlCharacters.IsChecked.Value;

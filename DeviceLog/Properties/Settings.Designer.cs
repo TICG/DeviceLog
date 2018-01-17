@@ -142,5 +142,17 @@ namespace DeviceLog.Properties {
                 this["Application_Log"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool LogWindow_ScrollToEnd {
+            get {
+                return ((bool)(this["LogWindow_ScrollToEnd"]));
+            }
+            set {
+                this["LogWindow_ScrollToEnd"] = value;
+            }
+        }
     }
 }

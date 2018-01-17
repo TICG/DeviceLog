@@ -304,7 +304,7 @@ namespace DeviceLog.Windows.Main
         {
             _applicationModule?.AddData("DeviceLog is currently showing the keyboard logs to the user...");
             Log l = _logController.GetKeyboardLogs()[_logController.GetKeyboardLogs().Count - 1];
-            new LogWindow(l).ShowDialog();
+            new LogWindow(l, _applicationModule).ShowDialog();
             _applicationModule?.AddData("DeviceLog is done showing the keyboard logs to the user.");
         }
 
@@ -312,7 +312,7 @@ namespace DeviceLog.Windows.Main
         {
             _applicationModule?.AddData("DeviceLog is currently showing the clipboard logs to the user...");
             Log l = _logController.GetClipboardLogs()[_logController.GetClipboardLogs().Count - 1];
-            new LogWindow(l).ShowDialog();
+            new LogWindow(l, _applicationModule).ShowDialog();
             _applicationModule?.AddData("DeviceLog is done showing the clipboard logs to the user.");
         }
 
@@ -323,7 +323,7 @@ namespace DeviceLog.Windows.Main
                 return;
             }
             _applicationModule?.AddData("DeviceLog is currently showing the application logs to the user...");
-            new LogWindow(_applicationModule?.GetLog()).ShowDialog();
+            new LogWindow(_applicationModule?.GetLog(), _applicationModule).ShowDialog();
             _applicationModule?.AddData("DeviceLog is done showing the application logs to the user.");
         }
 
@@ -331,7 +331,7 @@ namespace DeviceLog.Windows.Main
         {
             _applicationModule?.AddData("DeviceLog is currently showing the FileSystem logs to the user...");
             Log l = _logController.GetFileSystemLogs()[_logController.GetFileSystemLogs().Count - 1];
-            new LogWindow(l).ShowDialog();
+            new LogWindow(l, _applicationModule).ShowDialog();
             _applicationModule?.AddData("DeviceLog is done showing the FileSystem logs to the user.");
         }
     }
