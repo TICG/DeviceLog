@@ -9,12 +9,21 @@
     UseLayoutRounding="True"
     AllowsTransparency="True"
     TitleTextAlignment="Center"
-    Title="DeviceLog - Logs" Height="300" Width="300" WindowStartupLocation="CenterScreen" Icon="/DeviceLog;component/Resources/Images/keyboard.png">
+    Title="DeviceLog - Logs" Height="300" Width="450" WindowStartupLocation="CenterScreen" Icon="/DeviceLog;component/Resources/Images/keyboard.png">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
         <TextBox x:Name="TxtLog"
                  IsReadOnly="True"
                  TextWrapping="Wrap"
                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
                  ScrollViewer.VerticalScrollBarVisibility="Auto"></TextBox>
+
+        <Button
+            MinHeight="25"
+            Margin="3"
+            Grid.Row="1" Content="Close" Click="BtnClose_OnClick"/>
     </Grid>
 </syncfusion:ChromelessWindow>

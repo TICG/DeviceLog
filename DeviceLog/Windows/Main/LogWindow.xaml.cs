@@ -1,4 +1,5 @@
-﻿using DeviceLog.Classes.GUI;
+﻿using System.Windows;
+using DeviceLog.Classes.GUI;
 using DeviceLog.Classes.Log;
 
 namespace DeviceLog.Windows.Main
@@ -29,6 +30,11 @@ namespace DeviceLog.Windows.Main
         private void LogUpdated(string data)
         {
             TxtLog.Text = data;
+        }
+
+        private void BtnClose_OnClick(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

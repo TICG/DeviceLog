@@ -33,6 +33,7 @@ namespace DeviceLog.Windows.Main
                 CboStyle.SelectedValue = Properties.Settings.Default.VisualStyle;
                 CpMetroBrush.Color = Properties.Settings.Default.MetroColor;
                 IntBorderThickness.Value = Properties.Settings.Default.BorderThickness;
+                ChbLogApplication.IsChecked = Properties.Settings.Default.Application_Log;
 
                 //Keyboard
                 ChbKeyBoardControlCharacters.IsChecked = Properties.Settings.Default.KeyBoard_ControlCharacters;
@@ -59,6 +60,7 @@ namespace DeviceLog.Windows.Main
                 Properties.Settings.Default.VisualStyle = CboStyle.Text;
                 Properties.Settings.Default.MetroColor = CpMetroBrush.Color;
                 if (IntBorderThickness.Value != null) Properties.Settings.Default.BorderThickness = (int) IntBorderThickness.Value;
+                if (ChbLogApplication.IsChecked != null) Properties.Settings.Default.Application_Log = ChbLogApplication.IsChecked.Value;
 
                 //Keyboard
                 if (ChbKeyBoardControlCharacters.IsChecked != null) Properties.Settings.Default.KeyBoard_ControlCharacters = ChbKeyBoardControlCharacters.IsChecked.Value;
@@ -71,6 +73,7 @@ namespace DeviceLog.Windows.Main
                 Properties.Settings.Default.Save();
 
                 _mainWindow.LoadTheme();
+                _mainWindow.LoadApplicationModule();
                 _mainWindow.LoadKeyBoardModule();
                 _mainWindow.LoadClipboardModule();
 
@@ -93,6 +96,10 @@ namespace DeviceLog.Windows.Main
                 Properties.Settings.Default.Save();
 
                 _mainWindow.LoadTheme();
+                _mainWindow.LoadApplicationModule();
+                _mainWindow.LoadKeyBoardModule();
+                _mainWindow.LoadClipboardModule();
+
                 ChangeVisualStyle();
 
                 LoadSettings();

@@ -130,5 +130,17 @@ namespace DeviceLog.Properties {
                 this["ClipBoard_LogDateTime"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Application_Log {
+            get {
+                return ((bool)(this["Application_Log"]));
+            }
+            set {
+                this["Application_Log"] = value;
+            }
+        }
     }
 }
