@@ -16,11 +16,11 @@ namespace DeviceLog.Classes.Modules.FileSystem
 
         private readonly FileSystemLog _fileSystemLog;
         private FileSystemWatcher _fileSystemWatcher;
-        private SynchronizationContext context;
+        private readonly SynchronizationContext _context;
 
         internal FileSystemModule(string path, string fileTypes, bool changed, bool created, bool deleted, bool renamed, bool subDirectories, LogController logController)
         {
-            context = SynchronizationContext.Current;
+            _context = SynchronizationContext.Current;
             _path = path;
             _fileTypes = fileTypes;
             _changed = changed;
@@ -102,12 +102,12 @@ namespace DeviceLog.Classes.Modules.FileSystem
 
         private void OnChanged(object source, FileSystemEventArgs e)
         {
-            context.Post(val => _fileSystemLog.AddData("File: " + e.FullPath + " " + e.ChangeType), source);
+            _context.Post(val => _fileSystemLog.AddData("File: " + e.FullPath + " " + e.ChangeType), source);
         }
 
         private void OnRenamed(object source, RenamedEventArgs e)
         {
-            context.Post(val => _fileSystemLog.AddData("File: " + e.OldFullPath + " renamed to " + e.FullPath), source);
+            _context.Post(val => _fileSystemLog.AddData("File: " + e.OldFullPath + " renamed to " + e.FullPath), source);
         }
     }
 }

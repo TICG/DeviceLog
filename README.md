@@ -25,6 +25,7 @@ DeviceLog was created by DeadLine. This software is a work in progress and will 
 * [Syncfusion](https://syncfusion.com)
 * [UpdateManager](https://github.com/CodeDead/UpdateManager)
 * [.NET Framework 4.7.1](https://www.microsoft.com/en-us/download/details.aspx?id=56116)
+* [Resharper] (Optional, we just really like resharper)
 
 # License
 This software is licensed under the [GPLv3](https://codedead.com/Software/Advanced%20PassGen/gpl.pdf).

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using DeviceLog.Classes.GUI;
@@ -9,6 +10,7 @@ using DeviceLog.Classes.Modules.Application;
 using DeviceLog.Classes.Modules.Clipboard;
 using DeviceLog.Classes.Modules.FileSystem;
 using DeviceLog.Classes.Modules.Keyboard;
+using UpdateManager.Classes;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
 
@@ -20,7 +22,7 @@ namespace DeviceLog.Windows.Main
     /// </summary>
     public partial class MainWindow
     {
-        private readonly UpdateManager.UpdateManager _updateManager;
+        private readonly UpdateManager.Classes.UpdateManager _updateManager;
 
         private readonly LogController _logController;
         private ApplicationModule _applicationModule;
@@ -35,7 +37,16 @@ namespace DeviceLog.Windows.Main
             _applicationModule?.AddData("DeviceLog is currently initializing...");
 
             InitializeComponent();
-            _updateManager = new UpdateManager.UpdateManager(System.Reflection.Assembly.GetExecutingAssembly().GetName().Version, "https://codedead.com/Software/DeviceLog/update.xml", "DeviceLog");
+            StringVariables stringVariables = new StringVariables
+            {
+                CancelButtonText = "Cancel",
+                DownloadButtonText = "Download",
+                InformationButtonText = "Information",
+                NoNewVersionText = "You are running the latest version!",
+                TitleText = "DeviceLog",
+                UpdateNowText = "Would you like to update the application now?"
+            };
+            _updateManager = new UpdateManager.Classes.UpdateManager(Assembly.GetExecutingAssembly().GetName().Version, "https://codedead.com/Software/DeviceLog/update.xml", stringVariables);
 
             LoadKeyBoardModule();
             LoadClipboardModule();
@@ -318,7 +329,7 @@ namespace DeviceLog.Windows.Main
 
         private void ApplicationLogsItem_OnClick(object sender, RoutedEventArgs e)
         {
-            if (_applicationModule == null || _applicationModule?.GetLog() == null)
+            if (_applicationModule?.GetLog() == null)
             {
                 return;
             }
